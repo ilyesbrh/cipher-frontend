@@ -1,0 +1,36 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" position="end">
+
+  </mat-sidenav>
+  <mat-sidenav-content class="container">
+
+    <mat-toolbar color="primary">
+      <span>Cipher</span>
+      <button mat-button>
+        <mat-icon aria-hidden="false" style="font-size: 21px;">person</mat-icon> ilies bourouh
+      </button>
+    </mat-toolbar>
+
+    <div class="left-drawer-container">
+
+      <div class="account-main-container">
+
+        <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="">
+        <h1>Ilies bourouh</h1>
+      </div>
+
+      <button mat-button [routerLink]="[ '/home/']">
+        <mat-icon>home</mat-icon><span>Home</span>
+      </button>
+      <button mat-button [routerLink]="[ '/home/archive']">
+        <mat-icon>all_inbox</mat-icon><span>Archive</span>
+      </button>
+      <div class="space" style="margin: auto;"></div>
+      <button mat-button style="margin-bottom: 24px;">
+        <mat-icon>settings</mat-icon><span>Settings</span>
+      </button>
+    </div>
+
+    <router-outlet style="display: none;"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,152 @@
+.container {
+  display: grid;
+
+  grid-template: 60px auto / 304px auto;
+
+  width: 100vw;
+  height: 100vh;
+
+  background-color: #e1e1e1;
+
+  mat-toolbar {
+    @extend .mat-elevation-6;
+
+    grid-column: 1 / end;
+    grid-row: span 1;
+
+    height: 60px;
+
+    z-index: 2;
+    span {
+      margin-right: auto;
+    }
+  }
+
+  .left-drawer-container {
+    @extend .mat-elevation-4;
+
+    display: flex;
+    flex-direction: column;
+
+    grid-column: 1 / span 1;
+    grid-row: 2 / end;
+
+    width: 304px;
+    height: 100%;
+
+    background-color: white;
+    overflow-y: auto;
+
+    .account-main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: start;
+
+      grid-column: 1 / span 4;
+      grid-row: span 1;
+
+      width: calc(100%- 32px);
+      height: fit-content;
+
+      padding: 16px;
+      padding-top: 40px;
+      padding-bottom: 12px;
+
+      img {
+        @extend .mat-elevation-4;
+
+        width: 84px;
+        height: 84px;
+
+        border-radius: 42px;
+      }
+      h1 {
+        margin-bottom: 12px;
+      }
+    }
+
+    mat-divider {
+      width: 100%;
+
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      width: calc(100% - 16px);
+      height: 40px;
+
+      margin: 4px;
+      margin-left: 8px;
+      margin-right: 8px;
+
+      mat-icon {
+        margin-right: 34px;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+/* unused (can be used later) */
+// this is a list item designed with material design specs
+.driver-item {
+  display: flex;
+  align-items: center;
+
+  height: 84px;
+
+  padding: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  cursor: pointer;
+  img {
+    width: 64px;
+    height: 64px;
+
+    margin-right: 16px;
+  }
+  .infos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
+
+// Helpers
+@import "~@angular/material/theming";
+
+.mat-elevation-4 {
+  @include mat-elevation(4, grey, 0.4);
+}
+.mat-elevation-6 {
+  @include mat-elevation(6, grey, 0.4);
+}
+
+.mat-card-elevation {
+  @include mat-elevation-transition;
+  @include mat-elevation(3);
+
+  &:hover {
+    @include mat-elevation(8);
+  }
+}

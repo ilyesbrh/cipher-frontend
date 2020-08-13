@@ -1,0 +1,71 @@
+<h2 class="title">Requests</h2>
+
+<div class="card">
+  <img src="" alt="">
+  <div class="infos">
+    <span class="title">1234R</span>
+    <span class="description">new Requests</span>
+  </div>
+</div>
+
+<div class="card">
+  <img src="" alt="">
+  <div class="infos">
+    <span class="title">90</span>
+    <span class="description">Accepted requests</span>
+  </div>
+</div>
+<div class="card">
+  <img src="" alt="">
+  <div class="infos">
+    <span class="title">90</span>
+    <span class="description">rejected requests</span>
+  </div>
+</div>
+
+<div class="search-bar-container" [formGroup]="filter">
+  <h3>Search</h3>
+
+  <mat-button-toggle-group class="driver-type" formControlName="type">
+    <mat-button-toggle value="taxi" style="width: 50%;">active</mat-button-toggle>
+    <mat-button-toggle value="normal" style="width: 50%;">done</mat-button-toggle>
+    <mat-button-toggle value="normal" style="width: 50%;">canceled</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <mat-form-field appearance="outline">
+    <mat-label>name</mat-label>
+    <input matInput type="text" placeholder="taxi name..." formControlName="name">
+    <mat-icon matSuffix>account_box</mat-icon>
+    <mat-hint style="display: none;">Hint</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>region</mat-label>
+    <input matInput type="text" placeholder="taxi region..." formControlName="region">
+    <mat-icon matSuffix>explore</mat-icon>
+    <mat-hint style="display: none;">Hint</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>phone number</mat-label>
+    <input matInput type="text" placeholder="taxi phone number..." formControlName="phone">
+    <mat-icon matSuffix>contacts</mat-icon>
+    <mat-hint style="display: none;">Hint</mat-hint>
+  </mat-form-field>
+
+</div>
+
+<div class="requests-panel">
+
+  <div class="case-card">
+    <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
+
+
+    <button mat-button class="client">
+      <mat-icon>face</mat-icon> <span>Ilies bourouh</span>
+    </button>
+
+
+  </div>
+
+</div>

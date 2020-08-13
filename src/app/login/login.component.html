@@ -1,0 +1,21 @@
+<div class="login-container">
+  <img src="/assets/gavel.svg" alt="" class="logo">
+  <h2>Login to Cipher</h2>
+  <mat-form-field class="input login" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint *ngIf="false">Hint</mat-hint>
+  </mat-form-field>
+  <mat-form-field class="input" appearance="outline">
+    <mat-label>Passwords</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+    <mat-hint *ngIf="false">Hint</mat-hint>
+  </mat-form-field>
+  <div class="actions">
+    <a [routerLink]="[ '/forgetPassword']">forget password ?</a>
+    <button mat-raised-button color="primary">Login</button>
+  </div>
+
+</div>
