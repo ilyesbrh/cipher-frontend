@@ -26,12 +26,15 @@ $accent: mat-color($app-accent);
 
   overflow: auto;
 }
+
 .title {
   grid-column: 1 / end;
   grid-row: span 1;
 }
+
 .card {
   @extend .mat-elevation-4;
+  @extend .ripple;
 
   display: flex;
   align-items: center;
@@ -69,13 +72,16 @@ $accent: mat-color($app-accent);
     color: #3b3b3b;
   }
 
-  img {
-    width: 40px;
-    height: 40px;
+  mat-icon {
+    font-size: 36px;
+
+    width: fit-content;
+    height: fit-content;
 
     margin-right: 16px;
   }
 }
+
 .requests-panel {
   display: flex;
   flex-direction: column;
@@ -87,23 +93,33 @@ $accent: mat-color($app-accent);
 
   margin-bottom: 16px;
 
-  background-color: white;
-
   .case-card {
     @extend .mat-elevation-4;
 
-    display: flex;
-    flex-direction: row;
+    display: grid;
+
+    grid-template-columns: 1fr 20px 1fr;
+    grid-template-rows: repeat(4, auto);
+
+    column-gap: 12px;
+    row-gap: 32px;
 
     padding-top: 16px;
     padding-bottom: 8px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    margin-top: 16px;
+
+    background-color: white;
+
+    cursor: pointer;
     .title {
       position: relative;
-      margin-right: auto;
       margin-top: 0;
-      flex-shrink: 0;
+
+      grid-column: span 1;
+      grid-row: span 1;
 
       &:after {
         position: absolute;
@@ -117,20 +133,87 @@ $accent: mat-color($app-accent);
       }
     }
     .client {
+      grid-column: 2 / 4;
+      grid-row: span 1;
+
+      align-self: center;
+      justify-self: end;
+
+      width: fit-content;
+
+      border-radius: 24px;
+
+      background-color: rgb(238, 238, 238);
       mat-icon {
         margin-right: 8px;
       }
     }
-    .attributes {
+    .separation {
+      grid-column: 2 / span 1;
+      grid-row: 2 / 4;
+
+      width: 2px;
+      height: 100%;
+
+      align-self: center;
+      justify-self: center;
+
+      background-color: #c0c0c1;
+    }
+    .attribute {
+      grid-column: span 1;
+      grid-row: span 1;
+
+      align-self: center;
+      justify-self: self-start;
+
       display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: fit-content;
+      height: fit-content;
+
+      mat-icon {
+        margin-right: 12px;
+      }
     }
 
+    .type-tag {
+      grid-column: span 1;
+      grid-row: span 1;
+
+      align-self: center;
+      justify-self: self-start;
+
+      width: fit-content;
+
+      border-radius: 24px;
+
+      background-color: rgb(238, 238, 238);
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+    .favorite {
+      grid-column: 3 / 4;
+      grid-row: span 1;
+
+      align-self: center;
+      justify-self: end;
+
+      mat-icon {
+        margin: 8px;
+      }
+    }
     @media (max-width: 600) {
     }
   }
 }
 .search-bar-container {
   @extend .mat-elevation-4;
+
+  position: sticky;
 
   display: flex;
   flex-direction: column;
@@ -144,6 +227,8 @@ $accent: mat-color($app-accent);
   padding: 12px;
   padding-left: 22px;
   padding-right: 22px;
+
+  margin-top: 16px;
 
   background-color: white;
 

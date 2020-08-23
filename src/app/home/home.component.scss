@@ -41,12 +41,12 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      justify-content: start;
+      justify-content: flex-start;
 
       grid-column: 1 / span 4;
       grid-row: span 1;
 
-      width: calc(100%- 32px);
+      width: calc(100% - 32px);
       height: fit-content;
 
       padding: 16px;

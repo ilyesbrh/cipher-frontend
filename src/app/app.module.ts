@@ -8,12 +8,20 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-
 /* Angular material components */
-import { MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule } from '@angular/material';
+import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule } from '@angular/material';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule
+} from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { CaseViewComponent } from './case-view/case-view.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { ContactComponent } from './contacts/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +29,10 @@ import { ArchiveComponent } from './archive/archive.component';
     LoginComponent,
     HomeComponent,
     DashboardComponent,
-    ArchiveComponent
+    ArchiveComponent,
+    CaseViewComponent,
+    ContactsComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +47,19 @@ import { ArchiveComponent } from './archive/archive.component';
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatButtonToggleModule
+    MatListModule,
+    MatRippleModule,
+    MatExpansionModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatDialogModule,
+    /* datetime Picker */
+    NgxMatDatetimePickerModule,
+    MatDatepickerModule,
+    NgxMatTimepickerModule,
+    NgxMatMomentModule,
   ],
+  entryComponents: [ContactComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

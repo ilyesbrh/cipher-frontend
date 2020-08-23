@@ -1,0 +1,30 @@
+<mat-form-field appearance="fill">
+  <mat-label>name</mat-label>
+  <input matInput type="text" placeholder="user name..." [formControl]="nameFilter">
+  <mat-icon matSuffix>account_box</mat-icon>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Email</mat-label>
+  <input matInput type="text" placeholder="email..." [formControl]="emailFilter">
+  <mat-icon matSuffix>email</mat-icon>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Phone number</mat-label>
+  <input matInput type="text" placeholder="user phone number..." [formControl]="phoneFilter">
+  <mat-icon matSuffix>contacts</mat-icon>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Address</mat-label>
+  <input matInput type="text" placeholder="user address..." [formControl]="addressFilter">
+  <mat-icon matSuffix>location_on</mat-icon>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Note</mat-label>
+  <textarea matInput type="text" placeholder="note about user..." [formControl]="noteFilter" rows="3"></textarea>
+</mat-form-field>
+
+<div class="actions">
+  <button mat-raised-button color="primary">Save</button>
+</div>

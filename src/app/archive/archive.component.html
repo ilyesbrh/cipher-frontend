@@ -1,36 +1,30 @@
 <h2 class="title">Requests</h2>
 
 <div class="card">
-  <img src="" alt="">
+  <mat-icon>description</mat-icon>
   <div class="infos">
-    <span class="title">1234R</span>
-    <span class="description">new Requests</span>
+    <span class="title">12</span>
+    <span class="description">Active work</span>
   </div>
 </div>
 
 <div class="card">
-  <img src="" alt="">
+  <mat-icon>archive</mat-icon>
   <div class="infos">
     <span class="title">90</span>
-    <span class="description">Accepted requests</span>
+    <span class="description">Completed job</span>
   </div>
 </div>
 <div class="card">
-  <img src="" alt="">
+  <mat-icon>cancel_presentation</mat-icon>
   <div class="infos">
     <span class="title">90</span>
-    <span class="description">rejected requests</span>
+    <span class="description">Canceled jobs</span>
   </div>
 </div>
 
 <div class="search-bar-container" [formGroup]="filter">
   <h3>Search</h3>
-
-  <mat-button-toggle-group class="driver-type" formControlName="type">
-    <mat-button-toggle value="taxi" style="width: 50%;">active</mat-button-toggle>
-    <mat-button-toggle value="normal" style="width: 50%;">done</mat-button-toggle>
-    <mat-button-toggle value="normal" style="width: 50%;">canceled</mat-button-toggle>
-  </mat-button-toggle-group>
 
   <mat-form-field appearance="outline">
     <mat-label>name</mat-label>
@@ -57,14 +51,38 @@
 
 <div class="requests-panel">
 
-  <div class="case-card">
+  <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openCase()">
     <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
 
-
-    <button mat-button class="client">
+    <button mat-button class="client" (mousedown)="$event.stopPropagation()" (click)="gotoclient()">
       <mat-icon>face</mat-icon> <span>Ilies bourouh</span>
     </button>
 
+    <div class="attribute">
+      <mat-icon>location_on</mat-icon>
+      <span>location</span>
+    </div>
+    <div class="attribute">
+      <mat-icon>schedule</mat-icon>
+      <span>next alarm</span>
+    </div>
+    <div class="separation"></div>
+    <div class="attribute">
+      <mat-icon>monetization_on</mat-icon>
+      <span>amount</span>
+    </div>
+    <div class="attribute">
+      <mat-icon>assignment_turned_in</mat-icon>
+      <span>tasks number</span>
+    </div>
+
+    <button mat-button class="type-tag" (mousedown)="$event.stopPropagation()">
+      <mat-icon>label</mat-icon> <span>Ilies bourouh</span>
+    </button>
+
+    <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
+      <mat-icon>bookmarks</mat-icon>
+    </button>
 
   </div>
 

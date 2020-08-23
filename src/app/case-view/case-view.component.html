@@ -1,0 +1,96 @@
+<div class="header">
+  <div class="top">
+    <h2 class="title">Case Name</h2>
+    <h3 class="case-number">119235029438</h3>
+  </div>
+  <p class="description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
+    the industry's standard
+    dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+    specimen</p>
+
+  <button mat-button class="client">
+    <mat-icon>face</mat-icon> <span>Ilies bourouh</span>
+  </button>
+  <div class="actions">
+    <button mat-mini-fab class="action">
+      <mat-icon>face</mat-icon>
+    </button>
+    <button mat-mini-fab class="action">
+      <mat-icon>face</mat-icon>
+    </button>
+    <button mat-fab class="action">
+      <mat-icon>face</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="case-infos">
+  <h2>Infos</h2>
+  <mat-form-field appearance="fill" *ngFor="let item of [1,2,3,4,5,6]">
+    <mat-label>Fill form field</mat-label>
+    <input matInput placeholder="Placeholder">
+    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+  </mat-form-field>
+</div>
+
+<div class="attachments">
+  <h2 class="title"> Attachments</h2>
+  <button mat-raised-button color="primary" class="addBtn">Add file</button>
+  <mat-list class="list" role="list">
+    <mat-list-item matRipple class="item" role="listitem" *ngFor="let item of [1,2,3,4,5,6]">
+      <span class="name">Item 1</span>
+      <button mat-icon-button align="end" (mousedown)="$event.stopPropagation();">
+        <mat-icon>delete</mat-icon>
+      </button></mat-list-item>
+  </mat-list>
+</div>
+
+<div class="tasks">
+  <h2>Tasks</h2>
+  <button mat-raised-button color="primary" class="addBtn">Add task</button>
+
+  <mat-accordion class="tasks-list">
+    <mat-expansion-panel *ngFor="let item of [1,2,3,4,5]" opened="true" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Task title
+        </mat-panel-title>
+        <mat-panel-description>
+          22/10/2020
+          <button mat-icon-button (click)="$event.stopPropagation();">
+            <mat-icon>checked</mat-icon>
+          </button>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider style="margin-bottom: 16px;"></mat-divider>
+
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label>Alarm</mat-label>
+
+        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+        <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+        </ngx-mat-datetime-picker>
+      </mat-form-field>
+
+      <mat-divider style="margin-bottom: 20px;"></mat-divider>
+
+      <mat-form-field class="description" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="6" placeholder="some description"></textarea>
+      </mat-form-field>
+
+      <div class="actions">
+        <mat-slide-toggle class="alarm-toggle" labelPosition="before">Alarm</mat-slide-toggle>
+
+        <button mat-button color="warn">Delete</button>
+        <button mat-button>Cancel</button>
+        <button mat-raised-button color="primary">Save</button>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>

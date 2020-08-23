@@ -1,0 +1,271 @@
+// Import material theming functions
+@import "~@angular/material/theming";
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-accent: mat-palette($mat-amber);
+
+// Create your Sass color vars (will be available in all the project)
+$accent: mat-color($app-accent);
+
+:host {
+  display: grid;
+  grid-template:
+    repeat(3, minmax(min-content, max-content))
+    / repeat(12, 1fr);
+  gap: 24px 16px;
+
+  grid-column: 2 / end;
+  grid-row: 2 / end;
+
+  width: calc(100% - 32px);
+  height: calc(100% - 12px);
+
+  justify-self: center;
+
+  padding-top: 12px;
+  margin-left: 16px;
+  padding-right: 16px;
+
+  overflow: auto;
+}
+
+.header {
+  @extend .mat-elevation-4;
+
+  grid-column: 1 / end;
+  grid-row: span 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  position: relative;
+
+  height: fit-content;
+
+  padding: 32px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+
+  background-color: white;
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+
+    .title {
+      margin-top: 12px;
+    }
+    .case-number {
+    }
+  }
+  .description {
+    flex-shrink: 0;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .client {
+    width: fit-content;
+
+    margin-top: 42px;
+
+    font-weight: bolder;
+    border-radius: 24px;
+
+    background-color: rgb(238, 238, 238);
+    mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: -28px;
+    right: 24px;
+    .action {
+      margin-left: 4px;
+    }
+  }
+}
+
+.case-infos {
+  @extend .mat-elevation-4;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: fit-content;
+
+  padding: 12px;
+  padding-left: 8px;
+  padding-right: 8px;
+
+  margin-top: 18px;
+
+  grid-column: 1 / 6;
+  grid-row: span 1;
+
+  background-color: white;
+
+  mat-form-field {
+    width: 95%;
+  }
+}
+
+.attachments {
+  @extend .mat-elevation-4;
+
+  grid-column: 1 / end;
+  grid-row: span 1;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+
+  margin-bottom: 36px;
+
+  background-color: white;
+
+  .addBtn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+  }
+
+  .list {
+    max-height: 500px;
+    overflow: auto;
+
+    cursor: pointer;
+    .item {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+
+      width: 100%;
+
+      padding-bottom: 4px;
+      padding-top: 4px;
+
+      margin-bottom: 12px;
+
+      ::ng-deep .mat-list-item-content {
+        justify-content: space-between;
+        width: 100%;
+        .name {
+          margin-right: auto;
+        }
+      }
+    }
+  }
+}
+
+.tasks {
+  @extend .mat-elevation-4;
+
+  grid-column: 6 / end;
+  grid-row: 2 / 3;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+  min-height: calc(100% - 28px);
+
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+
+  margin-top: 18px;
+
+  background-color: white;
+
+  .tasks-list {
+    .mat-expansion-panel-header-title {
+      flex-basis: 0;
+      justify-content: flex-start;
+      align-items: center;
+
+      font-weight: 500;
+    }
+
+    .mat-expansion-panel-header-description {
+      flex-basis: 0;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .description {
+      width: 100%;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .alarm-toggle {
+        margin-right: auto;
+      }
+    }
+  }
+
+  .addBtn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+  }
+}
+
+// Helpers
+@import "~@angular/material/theming";
+
+.mat-elevation-4 {
+  @include mat-elevation(4, grey, 0.4);
+}
+.mat-elevation-6 {
+  @include mat-elevation(6, grey, 0.4);
+}
+.mat-card-elevation {
+  @include mat-elevation-transition;
+  @include mat-elevation(3);
+
+  &:hover {
+    @include mat-elevation(8);
+  }
+}
+
+// Ripple effect class
+.ripple {
+  cursor: pointer;
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: white radial-gradient(circle, transparent 1%, white 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #ccc;
+  background-size: 100%;
+  transition: background 0s;
+}
