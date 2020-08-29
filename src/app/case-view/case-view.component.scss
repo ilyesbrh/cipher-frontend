@@ -126,7 +126,7 @@ $accent: mat-color($app-accent);
 .attachments {
   @extend .mat-elevation-4;
 
-  grid-column: 1 / end;
+  grid-column: 1 / 7;
   grid-row: span 1;
 
   position: relative;
@@ -176,6 +176,57 @@ $accent: mat-color($app-accent);
         }
       }
     }
+  }
+}
+
+.payments {
+  @extend .mat-elevation-4;
+
+  grid-column: 7 / end;
+  grid-row: span 1;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  height: fit-content;
+
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+
+  background-color: white;
+
+  .payments-list {
+    .mat-expansion-panel-header-title {
+      flex-basis: 0;
+      justify-content: flex-start;
+      align-items: center;
+
+      font-weight: 500;
+    }
+
+    .mat-expansion-panel-header-description {
+      flex-basis: 0;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .description {
+      width: 100%;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .addBtn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
   }
 }
 

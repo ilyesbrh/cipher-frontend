@@ -1,4 +1,6 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-case-view',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CaseViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private viewportScroller: ViewportScroller) { }
 
   ngOnInit() {
+    this.route.fragment.subscribe(f => {
+      console.log(f);
+
+      this.viewportScroller.scrollToAnchor(f);
+    })
   }
 
 }

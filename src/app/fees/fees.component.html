@@ -1,0 +1,84 @@
+<h2 class="title">Fees</h2>
+
+<div class="card">
+  <mat-icon>description</mat-icon>
+  <div class="infos">
+    <span class="title">19000.00 £</span>
+    <span class="description">Total income</span>
+  </div>
+</div>
+
+<div class="card">
+  <mat-icon>archive</mat-icon>
+  <div class="infos">
+    <span class="title">19000.00 £</span>
+    <span class="description">Total debts</span>
+  </div>
+</div>
+<div class="card">
+  <mat-icon>cancel_presentation</mat-icon>
+  <div class="infos">
+    <span class="title">90000.00 £</span>
+    <span class="description">Total paid</span>
+  </div>
+</div>
+
+<div class="search-bar-container" [formGroup]="filter">
+  <h3>Search</h3>
+
+  <mat-form-field appearance="outline">
+    <mat-label>user name</mat-label>
+    <input matInput type="text" placeholder="user name..." formControlName="name">
+    <mat-icon matSuffix>account_box</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>case title</mat-label>
+    <input matInput type="text" placeholder="case title..." formControlName="case">
+    <mat-icon matSuffix>explore</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>max price</mat-label>
+    <input matInput type="text" placeholder="max..." formControlName="max">
+    <mat-icon matSuffix>contacts</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>min price</mat-label>
+    <input matInput type="text" placeholder="min..." formControlName="min">
+    <mat-icon matSuffix>contacts</mat-icon>
+  </mat-form-field>
+
+</div>
+
+<div class="requests-panel">
+
+  <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="expandPayment()">
+
+    <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
+
+    <button mat-button class="client" (mousedown)="$event.stopPropagation()" (click)="gotoclient()">
+      <mat-icon>face</mat-icon> <span>Ilies bourouh</span>
+    </button>
+
+    <div class="content">
+
+      <div class="info">
+        <div class="title">Total price</div>
+        <div class="amount">5000 DA</div>
+      </div>
+      <div class="separation"></div>
+      <div class="info">
+        <div class="title">Payed</div>
+        <div class="amount">5000 DA</div>
+      </div>
+      <div class="separation"></div>
+      <div class="info">
+        <div class="title">Debt</div>
+        <div class="amount">5000 DA</div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

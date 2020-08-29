@@ -94,3 +94,38 @@
 
   </mat-accordion>
 </div>
+
+<div id="payments" class="payments">
+  <h2>Payments</h2>
+  <button mat-raised-button color="primary" class="addBtn">Add transaction</button>
+
+  <mat-accordion class="payments-list">
+    <mat-expansion-panel *ngFor="let item of [1,2,3,4,5]" opened="true" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{'2000'}} DA
+        </mat-panel-title>
+        <mat-panel-description>
+          22/10/2020
+          <mat-icon>edit</mat-icon>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-divider style="margin-bottom: 20px;"></mat-divider>
+
+      <mat-form-field class="description" appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput rows="6" placeholder="some description">
+      </mat-form-field>
+
+      <div class="actions">
+
+        <button mat-button color="warn">Delete</button>
+        <button mat-raised-button color="primary">Save</button>
+      </div>
+
+    </mat-expansion-panel>
+
+  </mat-accordion>
+</div>

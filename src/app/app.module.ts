@@ -22,6 +22,9 @@ import { ArchiveComponent } from './archive/archive.component';
 import { CaseViewComponent } from './case-view/case-view.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { ContactComponent } from './contacts/contact/contact.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskComponent } from './tasks/task/task.component';
+import { FeesComponent } from './fees/fees.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ContactComponent } from './contacts/contact/contact.component';
     ArchiveComponent,
     CaseViewComponent,
     ContactsComponent,
-    ContactComponent
+    ContactComponent,
+    TasksComponent,
+    TaskComponent,
+    FeesComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +65,7 @@ import { ContactComponent } from './contacts/contact/contact.component';
     NgxMatTimepickerModule,
     NgxMatMomentModule,
   ],
-  entryComponents: [ContactComponent],
+  entryComponents: [ContactComponent, TaskComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

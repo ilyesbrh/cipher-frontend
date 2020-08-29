@@ -1,0 +1,284 @@
+// Import material theming functions
+@import "~@angular/material/theming";
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-accent: mat-palette($mat-amber);
+
+// Create your Sass color vars (will be available in all the project)
+$accent: mat-color($app-accent);
+
+:host {
+  display: grid;
+  grid-template: 60px auto auto / repeat(12, 1fr);
+  gap: 12px 16px;
+
+  grid-column: 2 / end;
+  grid-row: 2 / end;
+
+  width: calc(100% - 32px);
+  height: calc(100% - 12px);
+
+  justify-self: center;
+
+  padding-top: 12px;
+  margin-left: 16px;
+  padding-right: 16px;
+
+  overflow: auto;
+}
+
+.title {
+  grid-column: 1 / end;
+  grid-row: span 1;
+}
+
+.card {
+  @extend .mat-elevation-4;
+  @extend .ripple;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start☺;
+
+  grid-column: span 4;
+  grid-row: span 1;
+
+  height: 40px;
+  width: calc(100% - 32px);
+
+  padding: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  background-color: #ffffff;
+
+  .infos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+
+    height: 100%;
+    width: 100%;
+  }
+  .title {
+    font-size: 22.7px;
+    font-weight: 500;
+    color: #282d32;
+  }
+
+  .description {
+    font-size: 11px;
+    color: #3b3b3b;
+  }
+
+  mat-icon {
+    font-size: 36px;
+
+    width: fit-content;
+    height: fit-content;
+
+    margin-right: 16px;
+  }
+}
+
+.requests-panel {
+  display: flex;
+  flex-direction: column;
+
+  grid-column: 5 / span 8;
+  grid-row: 3 / end;
+
+  height: fit-content;
+
+  margin-bottom: 16px;
+
+  .case-card {
+    @extend .mat-elevation-4;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+
+    column-gap: 12px;
+    row-gap: 32px;
+
+    padding-top: 16px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    margin-top: 16px;
+
+    border-radius: 3px;
+
+    background-color: white;
+
+    cursor: pointer;
+    > .title {
+      position: relative;
+      margin-top: 0;
+
+      grid-column: span 2;
+      grid-row: span 1;
+
+      &:after {
+        position: absolute;
+        left: 0;
+        bottom: -22px;
+
+        font-size: 16px;
+        color: grey;
+
+        content: attr(data-case-number);
+      }
+    }
+    .client {
+      grid-column: 3 / end;
+      grid-row: span 1;
+
+      align-self: center;
+      justify-self: end;
+
+      width: fit-content;
+
+      border-radius: 24px;
+
+      background-color: rgb(238, 238, 238);
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+
+    .content {
+      grid-column: span 5;
+      grid-row: span 1;
+
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+
+      width: 100%;
+      height: 100%;
+
+      min-height: 50px;
+
+      margin-top: auto;
+      margin-bottom: auto;
+
+      align-self: center;
+      justify-self: center;
+
+      .separation {
+        width: 2px;
+        height: 100%;
+        background-color: #c0c0c1;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+
+        .amount {
+          font-size: x-large;
+          font-weight: bolder;
+        }
+      }
+    }
+
+    .type-tag {
+      grid-column: start / 1;
+      grid-row: 3 / 4;
+
+      align-self: center;
+      justify-self: self-start;
+
+      width: fit-content;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+    }
+    .favorite {
+      grid-column: 3 / end;
+      grid-row: 3 / 4;
+
+      align-self: center;
+      justify-self: end;
+
+      mat-icon {
+        margin: 8px;
+      }
+    }
+    @media (max-width: 600) {
+    }
+  }
+}
+.search-bar-container {
+  @extend .mat-elevation-4;
+
+  position: sticky;
+
+  grid-column: 1 / 5;
+  grid-row: 3 / end;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  height: fit-content;
+
+  padding: 12px;
+  padding-left: 22px;
+  padding-right: 22px;
+
+  margin-top: 16px;
+
+  border-radius: 3px;
+
+  background-color: white;
+
+  .driver-type {
+    margin-bottom: 24px;
+
+    .mat-button-toggle-checked {
+      background-color: $accent;
+    }
+  }
+}
+
+// Helpers
+@import "~@angular/material/theming";
+
+.mat-elevation-4 {
+  @include mat-elevation(4, grey, 0.4);
+}
+.mat-elevation-6 {
+  @include mat-elevation(6, grey, 0.4);
+}
+.mat-card-elevation {
+  @include mat-elevation-transition;
+  @include mat-elevation(3);
+
+  &:hover {
+    @include mat-elevation(8);
+  }
+}
+
+// Ripple effect class
+.ripple {
+  cursor: pointer;
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: white radial-gradient(circle, transparent 1%, white 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #ccc;
+  background-size: 100%;
+  transition: background 0s;
+}
