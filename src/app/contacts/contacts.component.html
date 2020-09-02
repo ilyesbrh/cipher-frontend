@@ -23,17 +23,22 @@
     <mat-icon matSuffix>contacts</mat-icon>
     <mat-hint style="display: none;">Hint</mat-hint>
   </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Role</mat-label>
+    <input matInput type="text" placeholder="role..." formControlName="role">
+    <mat-icon matSuffix>work</mat-icon>
+    <mat-hint style="display: none;">Hint</mat-hint>
+  </mat-form-field>
 
 </div>
 
 <div class="users-list">
 
-
-
   <div class="contact-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openContact(item)">
-    <h3 class="title" [attr.data-contact-number]="'12345'">contact name</h3>
 
-    <h3 class="phone">0550595660</h3>
+    <h3 class="title" [attr.data-contact-number]="'12345'">contact name</h3>
+    <sub class="number">05550669990 </sub>
+
 
     <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
       <mat-icon>bookmarks</mat-icon>

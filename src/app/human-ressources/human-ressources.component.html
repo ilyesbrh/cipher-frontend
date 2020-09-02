@@ -1,0 +1,45 @@
+<h2 class="title">Employees</h2>
+<div class="search-bar">
+  <button mat-icon-button>
+    <mat-icon>search</mat-icon>
+  </button>
+  <input type="text" [formControl]="search">
+  <button mat-icon-button>
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" class="add" (click)="createTask()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<div class="users-list">
+  <div mat-ripple class="user" *ngFor="let item of [1,1,1,1,1,1]" (click)="openUser()">
+    <h3 class="title">Issam benmahbous testing</h3>
+
+    <div class="content" [ngClass]="{'expand': expand}" (mousedown)="$event.stopPropagation()">
+
+      <div class="infos">
+        <h4>Info</h4>
+        <mat-form-field appearance="fill" *ngFor="let item of [1,1,1,1,1,1,1]" class="input">
+          <mat-label>name</mat-label>
+          <input matInput placeholder="label" value="testint test">
+        </mat-form-field>
+      </div>
+      <div class="roles">
+        <h4>Roles</h4>
+        <mat-slide-toggle *ngFor="let item of [1,1,1,1,1,1]" labelPosition="before" class="toggle">role 1
+        </mat-slide-toggle>
+      </div>
+
+    </div>
+
+    <button mat-raised-button class="save" [ngClass]="{'expand': expand}"
+      (mousedown)="$event.stopPropagation()">save</button>
+    <button mat-button class="actions" (mousedown)="$event.stopPropagation()">
+      <span class="label">actions</span>
+      <span class="value">160</span>
+    </button>
+    <button mat-icon-button class="delete" color="warn" (mousedown)="$event.stopPropagation()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

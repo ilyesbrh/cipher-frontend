@@ -46,34 +46,33 @@ $accent: mat-color($app-accent);
   .contact-card {
     @extend .mat-elevation-4;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     width: 100%;
-
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 20px;
-    padding-right: 8px;
+    height: 80px;
 
     margin-top: 16px;
 
     background-color: white;
 
+    border-radius: 4px;
     cursor: pointer;
     .title {
-      margin-right: 60px;
-      margin-bottom: 0;
+      position: absolute;
+      left: 18px;
+      top: 12px;
+
       margin-top: 0;
+      margin-bottom: 0;
     }
-    .phone {
-      margin-right: auto;
-      margin-bottom: 0;
-      margin-top: 0;
+    .number {
+      position: absolute;
+      left: 18px;
+      top: 34px;
     }
 
     .favorite {
+      position: absolute;
+      right: 12px;
+      top: 12px;
       mat-icon {
         margin: 8px;
       }

@@ -1,7 +1,13 @@
+@import "~angular-calendar/css/angular-calendar.css";
+
 /* You can add global styles to this file, and also import other style files */
-@import "~material-icons/iconfont/material-icons.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
-@import "~typeface-roboto/index.css";
+
+$material-icons-font-path: "~material-icons/iconfont/";
+@import "~material-icons/iconfont/material-icons.scss";
+
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface";
 
 html,
 body {

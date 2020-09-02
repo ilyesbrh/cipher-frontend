@@ -16,13 +16,15 @@ export class ContactsComponent implements OnInit {
   nameFilter = new FormControl('');
   emailFilter = new FormControl('');
   phoneFilter = new FormControl('');
+  roleFilter = new FormControl('');
 
 
   constructor(public dialog: MatDialog, public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
     this.filter = new FormGroup({
       name: this.nameFilter,
       email: this.emailFilter,
-      phone: this.phoneFilter
+      phone: this.phoneFilter,
+      role: this.roleFilter,
     });
   }
 

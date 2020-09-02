@@ -19,10 +19,24 @@
     </button>
     <span class="description">need to be there in time don't be late its too important , and bring things with
       you</span>
+
+    <mat-divider class="divider"></mat-divider>
+
     <mat-slide-toggle (mousedown)="$event.stopPropagation()" labelPosition="before" class="alarm">
       <div class="text">
         <mat-icon class="icon">alarm</mat-icon><span class="value">22/10/1997 1:50 PM</span>
       </div>
     </mat-slide-toggle>
+
+    <mat-divider class="divider"></mat-divider>
+    <div class="case">
+
+      <h3 class="name">Case name here</h3>
+
+      <button mat-mini-fab color="primary" class="client">AB</button>
+      <button mat-mini-fab color="warn">IB</button>
+
+    </div>
+
   </div>
 </div>

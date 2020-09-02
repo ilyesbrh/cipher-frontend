@@ -1,3 +1,4 @@
+import { HumanRessourcesComponent } from './human-ressources/human-ressources.component';
 import { CaseViewComponent } from './case-view/case-view.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'tasks', component: TasksComponent },
       { path: 'contacts', component: ContactsComponent },
       { path: 'archive', component: ArchiveComponent },
+      { path: 'HR', component: HumanRessourcesComponent },
       { path: 'archive/:id', component: CaseViewComponent },
     ]
   },

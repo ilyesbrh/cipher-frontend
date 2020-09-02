@@ -25,6 +25,14 @@ import { ContactComponent } from './contacts/contact/contact.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { FeesComponent } from './fees/fees.component';
+import { HumanRessourcesComponent } from './human-ressources/human-ressources.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import * as moment from 'moment';
+
+export function momentAdapterFactory() {
+  return adapterFactory(moment);
+};
 
 @NgModule({
   declarations: [
@@ -38,7 +46,8 @@ import { FeesComponent } from './fees/fees.component';
     ContactComponent,
     TasksComponent,
     TaskComponent,
-    FeesComponent
+    FeesComponent,
+    HumanRessourcesComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +73,7 @@ import { FeesComponent } from './fees/fees.component';
     MatDatepickerModule,
     NgxMatTimepickerModule,
     NgxMatMomentModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
   entryComponents: [ContactComponent, TaskComponent],
   providers: [],
