@@ -144,7 +144,7 @@ export class DashboardComponent implements OnInit {
     myChart.render();
   }
 
-  gotoclient(e) {
+  gotoclient() {
 
   }
 

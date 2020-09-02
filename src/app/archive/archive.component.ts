@@ -27,7 +27,7 @@ export class ArchiveComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoclient(e) {
+  gotoclient() {
 
   }
   openCase() {

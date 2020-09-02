@@ -29,7 +29,7 @@ export class FeesComponent implements OnInit {
   ngOnInit() {
   }
 
-  gotoclient(e) {
+  gotoclient() {
 
   }
   expandPayment() {
