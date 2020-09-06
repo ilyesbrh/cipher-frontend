@@ -1,16 +1,5 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="side" position="end">
-
-  </mat-sidenav>
-  <mat-sidenav-content class="container">
-
-    <mat-toolbar color="primary">
-      <span>Cipher</span>
-      <button mat-button>
-        <mat-icon aria-hidden="false" style="font-size: 21px;">person</mat-icon> Issam benmahbous
-      </button>
-    </mat-toolbar>
-
+<mat-sidenav-container hasBackdrop="true">
+  <mat-sidenav #drawer mode="over" position="start">
     <div class="left-drawer-container">
 
       <div class="account-main-container">
@@ -45,6 +34,19 @@
         <mat-icon>settings</mat-icon><span>Settings</span>
       </button>
     </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="container">
+
+    <mat-toolbar color="primary">
+
+      <div class="left-content">
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button> Cipher</div>
+      <button mat-button>
+        <mat-icon aria-hidden="false" style="font-size: 21px;">person</mat-icon> Issam benmahbous
+      </button>
+    </mat-toolbar>
 
     <router-outlet style="display: none;"></router-outlet>
   </mat-sidenav-content>

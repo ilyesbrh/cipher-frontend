@@ -8,7 +8,7 @@ $app-accent: mat-palette($mat-amber);
 $accent: mat-color($app-accent);
 
 :host {
-  grid-column: 2 / end;
+  grid-column: 1 / end;
   grid-row: 2 / end;
 
   display: flex;

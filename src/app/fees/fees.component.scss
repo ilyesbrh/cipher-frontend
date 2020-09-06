@@ -12,7 +12,7 @@ $accent: mat-color($app-accent);
   grid-template: 60px auto auto / repeat(12, 1fr);
   gap: 12px 16px;
 
-  grid-column: 2 / end;
+  grid-column: 1 / end;
   grid-row: 2 / end;
 
   width: calc(100% - 32px);

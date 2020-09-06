@@ -207,7 +207,9 @@ export class DashboardComponent implements OnInit {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
-  setView(view: CalendarView) {
+  setView(view) {
+    console.log(view);
+
     this.view = view;
   }
 
