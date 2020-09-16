@@ -34,10 +34,16 @@
 
   <div class="navigation">
     <button mat-raised-button mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
-      (viewDateChange)="closeOpenMonthViewDay()">Previews</button>
-    <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate">Today</button>
+      (viewDateChange)="closeOpenMonthViewDay()">
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+
+    <button mat-raised-button mwlCalendarToday [(viewDate)]="viewDate" color="primary">Today</button>
+
     <button mat-raised-button mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
-      (viewDateChange)="closeOpenMonthViewDay()">Next</button>
+      (viewDateChange)="closeOpenMonthViewDay()">
+      <mat-icon>arrow_right</mat-icon>
+    </button>
   </div>
 </div>
 

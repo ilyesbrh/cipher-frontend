@@ -1,119 +1,89 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 const ROOT = environment.API_URL;
-const RefreshTokenLink = `${ROOT}auth/token/refresh/`;
-const signUpLink = `${ROOT}auth/signup/`;
-const signInLink = `${ROOT}auth/signin/`;
-const signOutLink = `${ROOT}auth/signout/`;
-const UserLink = `${ROOT}auth/user/`;
-const addPlayerIDLink = `${ROOT}auth/user/player_id`;
-const AllAnomalies = `${ROOT}anomalies/`;
-const AllHistory = `${ROOT}anomalies/history/`;
-const AddSolution = `${ROOT}anomalies/`;
-const ResendEmailLink = `${ROOT}auth/email/resend-confirm/`;
+const LOGIN_LINK = `${ROOT}auth/signin`;
+const USER_LINK = `${ROOT}users/me`;
+const CASE_CREATE_LINK = `${ROOT}cases`;
+const CONTACT_LINK = `${ROOT}contacts`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-
   constructor(private http: HttpClient) {
   }
 
-  getRefreshToken(refresh) {
+  /* AUTHENTICATION */
 
-    return this.http.post(RefreshTokenLink, { refresh }).pipe(
-      catchError((err) => {
-        console.log('error getting token');
+  login(email, password) {
+    console.log('[LOGIN QUERY]');
 
-        return throwError(err);
-      }));
+    return this.http.post(LOGIN_LINK, { email, password }).pipe(map((res) => { console.log(res); return res; }));
   }
   register(user) {
     console.log(user);
 
-    return this.http.post(signUpLink, user);
+    return this.http.post('signUP', user);
   }
-  login(email, password) {
-    console.log('[LOGIN QUERY]');
 
-    return this.http.post(signInLink, { email, password }).pipe(map((res) => { console.log(res); return res; }));
-  }
-  confirmEmail(email) {
-    console.log('[CONFIRMATION QUERY]');
-
-    return this.http.post(ResendEmailLink, { email }).pipe(map((res) => { console.log(res); return res; }));
-  }
-  logOut(player_id: string) {
-    console.log('[LOGOUT QUERY]');
-
-    return this.http.post(signOutLink, { player_id }).toPromise();
-  }
   getUser() {
 
     console.log('[GETUSER QUERY]');
 
-    return this.http.get(UserLink).toPromise();
-  }
-  getAnomalies() {
-    console.log('[GET HISTORY QUERY]');
-
-    return this.http.get(AllAnomalies).pipe(map((v: any) => {
-      console.log(v);
-
-      v.forEach(element => {
-        element.created = new Date(element.created).getTime();
-        element.updated = new Date(element.updated).getTime();
-      });
-      return v;
-
-    }));
-  }
-  getHistory() {
-    console.log('[GET ANOMALIES QUERY]');
-
-    return this.http.get(AllHistory).pipe(map((v: any) => {
-      console.log(v);
-
-      v.forEach(element => {
-        element.created = new Date(element.created).getTime();
-        element.updated = new Date(element.updated).getTime();
-      });
-      return v;
-
-    }));
-
+    return this.http.get(USER_LINK).toPromise();
   }
 
-  getNotifications() {
-    console.log('[GETNOTIFS QUERY]');
+  /* DATA QUERY */
+  getAllContacts() {
 
-    return null;
+    let filter = new HttpParams();
+    filter.append('filter', `
+    {
+      "fields": {
+        "id": false,
+        "fullName": true,
+        "father": false,
+        "mother": false,
+        "phone": false,
+        "birthday": false,
+        "address": false,
+        "email": false,
+        "description": false,
+        "createdAt": false,
+        "updatedAt": false
+      }
+    }`);
+    return this.http.get(CONTACT_LINK, { params: filter });
   }
-  markAsSeen(id) {
-    console.log('[MARKASSEEN QUERY]');
 
-    return null;
+
+  /* DATA MUTATE */
+  createCase(values: any) {
+    return this.http.post(CASE_CREATE_LINK, values).toPromise();
   }
-  updateProfile(editUser: { address: string; domain: string; email: string; first_name: string; last_name: string; phone: string; }) {
+  createAttachments(value: any, id: any) {
+    return this.http.post(CASE_CREATE_LINK + '/' + id + '/attachments', value).toPromise();
+  }
+  createClient(values) {
+    return this.http.post(CONTACT_LINK, values).toPromise();
+  }
+
+  updateProfile(editUser) {
     console.log('[UPDATEPROFILE QUERY]');
     console.log(editUser);
 
-    return this.http.patch(UserLink, editUser);
+    return this.http.patch(USER_LINK, editUser);
   }
-  addSolution(id, data) {
-    console.log('[ADDANOMALY QUERY]');
 
-    return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
-  }
-  sendPlayerId(id) {
-    console.log('[SEND ID]');
-    this.http.post(addPlayerIDLink, { player_id: id }).toPromise();
-  }
+  // addSolution(id, data) {
+  //   console.log('[ADDANOMALY QUERY]');
+  //   return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+  // }
+
 }
 

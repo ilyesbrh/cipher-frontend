@@ -3,19 +3,19 @@
   <h2>Login to Cipher</h2>
   <mat-form-field class="input login" appearance="outline">
     <mat-label>Email</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint *ngIf="false">Hint</mat-hint>
+    <input matInput placeholder="put your email here" [(ngModel)]="data.email">
+    <mat-icon matSuffix>account_circle</mat-icon>
   </mat-form-field>
   <mat-form-field class="input" appearance="outline">
     <mat-label>Passwords</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint *ngIf="false">Hint</mat-hint>
+    <input #password matInput id="password" name="password" [(ngModel)]="data.password"
+      placeholder="Enter your password" type="password">
+    <i #eyeIcon matSuffix class="material-icons" style="cursor: pointer;"
+      (click)="changeVisibility(password,eyeIcon)">remove_red_eye</i>
   </mat-form-field>
   <div class="actions">
     <a [routerLink]="[ '/forgetPassword']">forget password ?</a>
-    <button mat-raised-button color="primary">Login</button>
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
   </div>
 
 </div>

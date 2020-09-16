@@ -93,6 +93,11 @@ $accent: mat-color($app-accent);
 
   margin-bottom: 16px;
 
+  .create-btn {
+    margin-top: 18px;
+    width: 250px;
+  }
+
   .case-card {
     @extend .mat-elevation-4;
 

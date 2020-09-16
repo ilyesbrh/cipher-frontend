@@ -1,3 +1,5 @@
+import { UiStateManagerService } from './ui-state-manager.service';
+import { overlayViewComponent } from './overlay-view/overlay-view.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -6,14 +8,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /* Angular material components */
-import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule } from '@angular/material';
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule
-} from '@angular-material-components/datetime-picker';
+import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 
 import { HomeComponent } from './home/home.component';
@@ -29,6 +29,8 @@ import { HumanRessourcesComponent } from './human-ressources/human-ressources.co
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
+import { TokenInterceptor } from './auth-service/token-interceptor';
+import { AddCaseComponent } from './Forms/add-case/add-case.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -47,7 +49,9 @@ export function momentAdapterFactory() {
     TasksComponent,
     TaskComponent,
     FeesComponent,
-    HumanRessourcesComponent
+    HumanRessourcesComponent,
+    overlayViewComponent,
+    AddCaseComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +60,7 @@ export function momentAdapterFactory() {
     BrowserAnimationsModule,
     FormsModule, ReactiveFormsModule,
     /* material components */
+    MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
@@ -68,15 +73,28 @@ export function momentAdapterFactory() {
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatDialogModule,
+    MatStepperModule,
+    MatListModule,
+    MatSelectModule,
+    NgxMatFileInputModule,
     /* datetime Picker */
     NgxMatDatetimePickerModule,
     MatDatepickerModule,
     NgxMatTimepickerModule,
     NgxMatMomentModule,
+    MatChipsModule,
+    /* POPUP alert */
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
-  entryComponents: [ContactComponent, TaskComponent],
-  providers: [],
+  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    UiStateManagerService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

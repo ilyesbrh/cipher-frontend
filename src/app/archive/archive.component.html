@@ -51,6 +51,9 @@
 
 <div class="requests-panel">
 
+  <button mat-raised-button color="primary" class="create-btn" [routerLink]="[ '/home/archive/add']">Create new
+    case</button>
+
   <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openCase()">
     <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
 

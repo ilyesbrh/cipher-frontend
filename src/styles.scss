@@ -20,6 +20,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+::ng-deep .test {
+  overflow: hidden;
+  padding: 0;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 7px;

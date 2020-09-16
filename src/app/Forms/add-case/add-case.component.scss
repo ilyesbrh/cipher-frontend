@@ -1,0 +1,160 @@
+// Import material theming functions
+@import "~@angular/material/theming";
+
+// Copy the palettes from your selected theme (usually theme.scss).
+$app-accent: mat-palette($mat-blue);
+
+// Create your Sass color vars (will be available in all the project)
+$accent: mat-color($app-accent, 900);
+
+.mat-calendar {
+  box-shadow: none;
+}
+
+:host {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  grid-column: 1 / end;
+  grid-row: 2 / end;
+
+  width: calc(100% - 32px);
+  height: calc(100% - 12px);
+
+  padding-top: 12px;
+  padding-left: 16px;
+  padding-right: 16px;
+
+  overflow: auto;
+}
+
+.background {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  height: 240px;
+  width: 100%;
+
+  background-color: $accent;
+}
+
+.content {
+  @extend .mat-card-elevation;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+  max-width: 960px;
+
+  margin-top: 120px;
+  margin-bottom: 58px;
+
+  padding: 8px;
+
+  border-radius: 3px;
+
+  background-color: white;
+
+  z-index: 10;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    > .description {
+      font-weight: bolder;
+      margin-bottom: 32px;
+    }
+
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    @media (min-width: 700px) {
+      width: 360px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .done {
+        width: 120px;
+      }
+    }
+
+    .attachment {
+      @extend .mat-elevation-4;
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+      width: calc(100% - 32px);
+
+      padding: 16px;
+
+      background-color: whitesmoke;
+
+      .title {
+        margin-top: 2px;
+        margin-bottom: 4px;
+      }
+      .description {
+        margin: 0;
+      }
+      .delete {
+        position: absolute;
+        right: 2px;
+        top: 2px;
+      }
+    }
+  }
+}
+
+// Helpers
+@import "~@angular/material/theming";
+
+.mat-elevation-4 {
+  @include mat-elevation(4, grey, 0.4);
+}
+.mat-elevation-6 {
+  @include mat-elevation(6, grey, 0.4);
+}
+.mat-card-elevation {
+  @include mat-elevation-transition;
+  @include mat-elevation(4);
+
+  &:hover {
+    @include mat-elevation(8);
+  }
+}
+
+// Ripple effect class
+.ripple {
+  cursor: pointer;
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: white radial-gradient(circle, transparent 1%, white 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: #ccc;
+  background-size: 100%;
+  transition: background 0s;
+}

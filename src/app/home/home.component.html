@@ -5,7 +5,7 @@
       <div class="account-main-container">
 
         <img src="https://api.adorable.io/avatars/285/abott@adorable.png" alt="">
-        <h1>Issam benmahbous</h1>
+        <h1>{{uiService.user?.fullName}}</h1>
       </div>
 
       <button mat-button [routerLink]="[ '/home/']">
@@ -44,7 +44,7 @@
           <mat-icon>menu</mat-icon>
         </button> Cipher</div>
       <button mat-button>
-        <mat-icon aria-hidden="false" style="font-size: 21px;">person</mat-icon> Issam benmahbous
+        <mat-icon aria-hidden="false" style="font-size: 21px;">person</mat-icon> {{uiService.user?.fullName}}
       </button>
     </mat-toolbar>
 

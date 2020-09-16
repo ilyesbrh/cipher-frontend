@@ -1,0 +1,222 @@
+<div class="background"></div>
+<div class="content">
+  <h2>Add new case</h2>
+
+  <mat-vertical-stepper [linear]="true" [selectedIndex]="0" #stepper>
+    <mat-step [editable]="false" [stepControl]="caseForm">
+      <form [formGroup]="caseForm">
+        <ng-template matStepLabel>Case</ng-template>
+
+        <!-- Case Name -->
+        <mat-form-field appearance="outline">
+          <mat-label>case name</mat-label>
+          <input matInput placeholder="case name..." formControlName="name" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>put a significant case name</mat-hint>
+        </mat-form-field>
+
+        <!-- Case Number -->
+        <mat-form-field appearance="outline">
+          <mat-label>Case number</mat-label>
+          <input matInput placeholder="case number..." formControlName="number">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>put case number</mat-hint>
+        </mat-form-field>
+
+        <!-- Case price -->
+        <mat-form-field appearance="outline">
+          <mat-label>Case price</mat-label>
+          <input matInput type="number" placeholder="case price..." formControlName="price">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>put price here</mat-hint>
+        </mat-form-field>
+
+        <!-- Case Client full name -->
+        <mat-form-field appearance="outline">
+          <mat-label>Client</mat-label>
+          <input matInput placeholder="Client name..." formControlName="client" [matAutocomplete]="auto" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>put client name</mat-hint>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.fullName">
+              {{option.fullName}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <!-- Case opponent full name -->
+        <mat-form-field appearance="outline">
+          <mat-label>Opponent</mat-label>
+          <input matInput placeholder="Opponent name..." formControlName="opponent" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>put opponent name</mat-hint>
+        </mat-form-field>
+
+        <!-- Case location -->
+        <mat-form-field appearance="outline">
+          <mat-label>court</mat-label>
+          <input matInput placeholder="court name..." formControlName="location" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint>case court</mat-hint>
+        </mat-form-field>
+
+        <!-- Case state -->
+        <mat-form-field appearance="outline">
+          <mat-label>Current state</mat-label>
+          <mat-select formControlName="state" required>
+            <mat-option *ngFor="let state of ['Active','Archived','Canceled']" [value]="state">{{state}}</mat-option>
+          </mat-select>
+          <mat-icon matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+
+        <!-- Case description -->
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput placeholder="description..." formControlName="description" style="width: 100%;"
+            rows="6"></textarea>
+        </mat-form-field>
+
+        <!-- Case tags -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list #chipList aria-label="tags selection">
+            <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
+              {{tag.name}}
+              <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="case type..." [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+              (matChipInputTokenEnd)="add($event)" formControlName="tags">
+          </mat-chip-list>
+          <mat-hint>put some case related info like type , act etc..</mat-hint>
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button color="primary" style="width: 140%;margin-top: 16px;"
+            (click)="createCase()">Create</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [editable]="false" [stepControl]="clientForm">
+      <form [formGroup]="clientForm">
+        <ng-template matStepLabel>Client</ng-template>
+        <p class="description">
+          Your client does not exist in database please fill information's below and
+          click on save
+        </p>
+        <!-- Client full name -->
+        <mat-form-field appearance="outline">
+          <mat-label>Full name</mat-label>
+          <input matInput placeholder="full name..." formControlName="fullName" required>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client father-->
+        <mat-form-field appearance="outline">
+          <mat-label>Father name</mat-label>
+          <input matInput placeholder="father name..." formControlName="father">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client mother-->
+        <mat-form-field appearance="outline">
+          <mat-label>Mother name</mat-label>
+          <input matInput placeholder="mother name..." formControlName="mother">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client phone -->
+        <mat-form-field appearance="outline">
+          <mat-label>Phone number</mat-label>
+          <input matInput placeholder="phone number..." formControlName="phone">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client address -->
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput placeholder="address..." formControlName="address">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client email -->
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="email..." formControlName="email">
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- Client birthday -->
+        <mat-form-field appearance="outline">
+          <mat-label>Birthday</mat-label>
+
+          <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose birthday" formControlName="birthday">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+          <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="false" [hideTime]="true">
+          </ngx-mat-datetime-picker>
+        </mat-form-field>
+        <!-- Client description -->
+        <mat-form-field appearance="outline">
+          <mat-label>description</mat-label>
+          <textarea matInput rows="6" placeholder="description..." formControlName="description">
+          </textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+        <!-- create Client -->
+        <div>
+          <button mat-raised-button color="primary" (click)="createClient()">Save</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [editable]="false">
+      <form [formGroup]="attachmentsForm">
+        <ng-template matStepLabel>Attachments</ng-template>
+        <p class="description">
+          You can add your attachments here so you can access them easily throw our application
+        </p>
+
+        <div class="attachment" *ngFor="let att of attachments; let i=index">
+          <h2 class="title">{{att.name}}</h2>
+          <p class="description">{{att.description | slice:1:50}}...</p>
+          <button mat-icon-button class="delete" color="warn" (click)="delAttachment(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <h3 style="margin-top: 32px;">Add attachment</h3>
+        <!-- File name -->
+        <mat-form-field style="padding-bottom: 0;margin-bottom: 0;" appearance="outline" color="primary">
+          <mat-label>File name</mat-label>
+          <input matInput placeholder="file name" formControlName="name">
+        </mat-form-field>
+        <!-- file selection -->
+        <mat-form-field style="padding-bottom: 0;margin-bottom: 0;" appearance="outline" color="primary">
+          <mat-label>selected file</mat-label>
+          <ngx-mat-file-input formControlName="file">
+          </ngx-mat-file-input>
+        </mat-form-field>
+        <!-- Attachment description -->
+        <mat-form-field appearance="outline">
+          <mat-label>description</mat-label>
+          <textarea matInput rows="6" placeholder="description..." formControlName="description">
+                  </textarea>
+          <mat-hint></mat-hint>
+        </mat-form-field>
+
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="sendAttachments()">send</button>
+          <button mat-raised-button color="accent" class="done" (click)="done()">Done</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [editable]="false">
+      <ng-template matStepLabel>Done</ng-template>
+      Your case created successfully .
+      <div>
+        <button mat-button>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
