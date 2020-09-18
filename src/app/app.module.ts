@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 /* Angular material components */
 import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
@@ -59,6 +60,7 @@ export function momentAdapterFactory() {
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule, ReactiveFormsModule,
+    SweetAlert2Module.forRoot(),
     /* material components */
     MatAutocompleteModule,
     MatFormFieldModule,

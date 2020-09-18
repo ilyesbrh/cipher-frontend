@@ -312,6 +312,7 @@ $accent: mat-color($app-accent);
 
 .mat-elevation-4 {
   @include mat-elevation(4, grey, 0.4);
+  border-radius: 3px;
 }
 .mat-elevation-6 {
   @include mat-elevation(6, grey, 0.4);

@@ -7,7 +7,7 @@ import { MatStepper } from '@angular/material';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
-import { MatAlertDialog, MatAlertDialogData } from '@angular-material-extensions/core';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-add-case',
@@ -18,6 +18,8 @@ export class AddCaseComponent implements OnInit {
 
   @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
+  @ViewChild('swalWarn', { static: true }) private Swal: SwalComponent;
+
   /* Auto Complete */
   contactsList = [];
   courtList = [];
@@ -27,13 +29,13 @@ export class AddCaseComponent implements OnInit {
   caseForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     number: new FormControl(''),
-    price: new FormControl(''),
+    price: new FormControl(0),
     client: new FormControl('', [Validators.required]),
     opponent: new FormControl('', [Validators.required]),
     location: new FormControl('', [Validators.required]),
     state: new FormControl('Active'),
     description: new FormControl(''),
-    tags: new FormControl(''),
+    tags: new FormControl('', [Validators.required]),
   });
 
   // Attachments
@@ -80,15 +82,16 @@ export class AddCaseComponent implements OnInit {
   // cases
   async createCase() {
 
+
     let values = { ...this.caseForm.value, tags: this.tags.map(v => v.name).toString() };
 
-    console.log(values);
+
 
     try {
 
       this.case = await this.http.createCase(values);
 
-      if (this.contactsList.includes(values.client)) {
+      if (this.contactsList.findIndex(v => values.client === v.fullName) > -1) {
 
         this.stepper.selectedIndex = 2;
       } else {
@@ -99,14 +102,8 @@ export class AddCaseComponent implements OnInit {
     } catch (error) {
       console.log(error);
 
-      const params: MatAlertDialogData = {
-        title: 'Woohoooo!',
-        message: 'Your are now free :D! Please check the instructions to book a holiday!',
-        icon: 'accessibility_new',
-        type: 'accent'
-      }
-      // TODO: show error message
-      this.dialog.open(MatAlertDialog, { data: params });
+      this.Swal.fire();
+
     }
 
   }
