@@ -32,6 +32,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
 import { TokenInterceptor } from './auth-service/token-interceptor';
 import { AddCaseComponent } from './Forms/add-case/add-case.component';
+import { AddContactComponent } from './contacts/add-contact/add-contact.component';
+import { AddTaskComponent } from './tasks/add-task/add-task.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -52,7 +54,9 @@ export function momentAdapterFactory() {
     FeesComponent,
     HumanRessourcesComponent,
     overlayViewComponent,
-    AddCaseComponent
+    AddCaseComponent,
+    AddContactComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,

@@ -3,22 +3,21 @@
 <div class="card">
   <mat-icon>description</mat-icon>
   <div class="infos">
-    <span class="title">12</span>
+    <span class="title">{{OBJECT_VALUE.uiState.activeWork}}</span>
     <span class="description">Active work</span>
   </div>
 </div>
-
 <div class="card">
   <mat-icon>archive</mat-icon>
   <div class="infos">
-    <span class="title">90</span>
+    <span class="title">{{OBJECT_VALUE.uiState.completedWork}}</span>
     <span class="description">Completed job</span>
   </div>
 </div>
 <div class="card">
   <mat-icon>cancel_presentation</mat-icon>
   <div class="infos">
-    <span class="title">90</span>
+    <span class="title">{{OBJECT_VALUE.uiState.canceledWork}}</span>
     <span class="description">Canceled jobs</span>
   </div>
 </div>
@@ -54,34 +53,50 @@
   <button mat-raised-button color="primary" class="create-btn" [routerLink]="[ '/home/archive/add']">Create new
     case</button>
 
-  <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openCase()">
-    <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
+  <div class="case-card" matRipple *ngFor="let item of OBJECT_VALUE.data" (click)="openCase(item)">
+    <h3 class="title" [attr.data-case-number]="item.number">{{item.name}}</h3>
 
-    <button mat-button class="client" (mousedown)="$event.stopPropagation()" (click)="gotoclient()">
-      <mat-icon>face</mat-icon> <span>Issam benmahbous</span>
-    </button>
+    <div class="separation"></div>
+
+
+    <div class="attribute">
+      <button mat-button class="client" (mousedown)="$event.stopPropagation()"
+        (click)="gotoClient(item.client);$event.stopPropagation();">
+        <mat-icon>security</mat-icon> <span>{{item.opponent}}</span>
+      </button>
+    </div>
+    <div class="attribute">
+      <button mat-button class="client" (mousedown)="$event.stopPropagation()"
+        (click)="gotoClient(item.client);$event.stopPropagation();">
+        <mat-icon>gavel</mat-icon> <span>{{item.client}}</span>
+      </button>
+    </div>
 
     <div class="attribute">
       <mat-icon>location_on</mat-icon>
-      <span>location</span>
+      <span>{{item.location}}</span>
     </div>
+
     <div class="attribute">
       <mat-icon>schedule</mat-icon>
-      <span>next alarm</span>
+      <span>{{item.state}}</span>
     </div>
-    <div class="separation"></div>
+
     <div class="attribute">
       <mat-icon>monetization_on</mat-icon>
-      <span>amount</span>
+      <span>{{item.price}} DA</span>
     </div>
     <div class="attribute">
       <mat-icon>assignment_turned_in</mat-icon>
-      <span>tasks number</span>
+      <span>{{item.tasksNumber}}</span>
     </div>
 
-    <button mat-button class="type-tag" (mousedown)="$event.stopPropagation()">
-      <mat-icon>label</mat-icon> <span>civil</span>
-    </button>
+    <div class="tags">
+      <button mat-button class="type-tag" *ngFor="let tag of item.tags" (click)="$event.stopPropagation()"
+        (mousedown)="$event.stopPropagation()">
+        <span>{{tag}}</span>
+      </button>
+    </div>
 
     <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
       <mat-icon>bookmarks</mat-icon>

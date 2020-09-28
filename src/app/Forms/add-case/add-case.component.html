@@ -1,12 +1,13 @@
 <div class="background"></div>
-<swal #swalWarn title="Input Error" text="Please make sure to fill all needed fields" icon="error"
+<swal #swalPopup [title]="swalParams.title" [text]="swalParams.description" [icon]="swalParams.icon"
   [showCancelButton]="true" [focusCancel]="true">
 </swal>
+
 <div class="content">
   <h2>Add new case</h2>
 
-  <mat-vertical-stepper [linear]="true" [selectedIndex]="0" #stepper>
-    <mat-step [editable]="false" [stepControl]="caseForm">
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step #step1 [editable]="false" [stepControl]="caseForm">
       <form [formGroup]="caseForm">
         <ng-template matStepLabel>Case</ng-template>
 
@@ -69,7 +70,6 @@
           <mat-select formControlName="state" required>
             <mat-option *ngFor="let state of ['Active','Archived','Canceled']" [value]="state">{{state}}</mat-option>
           </mat-select>
-          <mat-icon matSuffix>account_circle</mat-icon>
         </mat-form-field>
 
         <!-- Case description -->
@@ -96,11 +96,11 @@
 
         <div>
           <button mat-raised-button color="primary" style="width: 140%;margin-top: 16px;"
-            (click)="createCase()">Create</button>
+            (click)="createCase(step1,step2)">Create</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [editable]="false" [stepControl]="clientForm">
+    <mat-step #step2 [editable]="false" [stepControl]="clientForm">
       <form [formGroup]="clientForm">
         <ng-template matStepLabel>Client</ng-template>
         <p class="description">
@@ -168,11 +168,11 @@
         </mat-form-field>
         <!-- create Client -->
         <div>
-          <button mat-raised-button color="primary" (click)="createClient()">Save</button>
+          <button mat-raised-button color="primary" (click)="createClient(step2)">Save</button>
         </div>
       </form>
     </mat-step>
-    <mat-step [editable]="false">
+    <mat-step [optional]="true">
       <form [formGroup]="attachmentsForm">
         <ng-template matStepLabel>Attachments</ng-template>
         <p class="description">
@@ -213,12 +213,12 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [editable]="false">
+    <mat-step [optional]="true">
       <ng-template matStepLabel>Done</ng-template>
-      Your case created successfully .
+      <h3>Your case created successfully .</h3>
       <div>
-        <button mat-button>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button [routerLink]="[ '/home']">home</button>
+        <button mat-raised-button color="accent" [routerLink]="[ '/home/archive/'+case?.id ]">Open case</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>

@@ -1,6 +1,6 @@
 import { UiStateManagerService } from './../ui-state-manager.service';
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../globalServices/rest.service';
+import { RestService } from '../auth-service/REST.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { delay } from 'rxjs/operators';

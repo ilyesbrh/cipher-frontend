@@ -20,9 +20,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-::ng-deep .test {
+.test .mat-dialog-container {
   overflow: hidden;
-  padding: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* Scrollbar Styling */

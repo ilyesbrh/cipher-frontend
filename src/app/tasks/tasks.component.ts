@@ -1,9 +1,9 @@
 import { TaskComponent } from './task/task.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../globalServices/rest.service';
+import { RestService } from '../auth-service/REST.service';
 
 @Component({
   selector: 'app-tasks',
@@ -12,7 +12,13 @@ import { RestService } from '../globalServices/rest.service';
 })
 export class TasksComponent implements OnInit {
 
-  search = new FormControl('');
+
+  filter = new FormGroup({
+    search: new FormControl(''),
+    startDate: new FormControl(''),
+    endDate: new FormControl(''),
+    sortBy: new FormControl(''),
+  });
 
   constructor(public dialog: MatDialog, public api: RestService, public router: Router, public activeRoute: ActivatedRoute) { }
 
@@ -20,13 +26,11 @@ export class TasksComponent implements OnInit {
   }
 
   createTask() {
-
+    this.router.navigate(['add'], { relativeTo: this.activeRoute });
   }
 
-  openTask() {
-    this.dialog.open(TaskComponent, {
-
-    })
+  async openTask() {
+    this.dialog.open(TaskComponent, {});
   }
 
 }

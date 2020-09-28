@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-import { RestService } from '../globalServices/rest.service';
+import { RestService } from '../auth-service/REST.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TaskComponent } from '../tasks/task/task.component';
 

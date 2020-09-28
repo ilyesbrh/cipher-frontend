@@ -48,7 +48,7 @@ export class AuthManagerService {
     );
   }
   async logout() {
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
     this.doLogoutUser();
     return true;
 

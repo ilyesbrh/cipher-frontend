@@ -8,6 +8,8 @@
   max-width: fit-content;
   overflow-x: hidden;
 
+  padding-left: 16px;
+  padding-right: 16px;
   .icon {
     font-size: 96px;
     margin-top: 8px;
@@ -24,7 +26,7 @@
   .actions {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
 
     width: 100%;
   }

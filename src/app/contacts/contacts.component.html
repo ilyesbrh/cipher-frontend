@@ -1,3 +1,8 @@
+<div class="background"></div>
+<swal #swalSuccess title="Contact Updated" text="Your contact updated successfully" icon="info"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+
 <h2 class="title">Contacts</h2>
 
 <div class="search-bar-container" [formGroup]="filter">
@@ -34,10 +39,10 @@
 
 <div class="users-list">
 
-  <div class="contact-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openContact(item)">
+  <div class="contact-card" matRipple *ngFor="let item of contacts" (click)="openContact(item)">
 
-    <h3 class="title" [attr.data-contact-number]="'12345'">contact name</h3>
-    <sub class="number">05550669990 </sub>
+    <h3 class="title" [attr.data-contact-number]="item.phone">{{item.fullName}}</h3>
+    <sub class="number">{{item.address}} </sub>
 
 
     <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
@@ -47,3 +52,7 @@
   </div>
 
 </div>
+
+<button mat-fab class="add-fab" (click)="addContact()">
+  <mat-icon>add</mat-icon>
+</button>

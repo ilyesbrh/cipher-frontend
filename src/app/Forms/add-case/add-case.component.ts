@@ -1,6 +1,5 @@
-import { RestService } from './../../globalServices/rest.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatStepper } from '@angular/material';
@@ -8,6 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { RestService } from 'src/app/auth-service/REST.service';
 
 @Component({
   selector: 'app-add-case',
@@ -18,11 +18,14 @@ export class AddCaseComponent implements OnInit {
 
   @ViewChild('stepper', { static: true }) stepper: MatStepper;
 
-  @ViewChild('swalWarn', { static: true }) private Swal: SwalComponent;
+  @ViewChild('swalPopup', { static: true }) private Swal: SwalComponent;
 
   /* Auto Complete */
   contactsList = [];
   courtList = [];
+
+  /* swal popup params */
+  swalParams = { title: 'Input error', description: 'please verify your inputs', icon: 'error' };
 
   // Case
   case: any;
@@ -79,24 +82,32 @@ export class AddCaseComponent implements OnInit {
 
   /* Data functions */
 
+
+
   // cases
-  async createCase() {
-
-
-    let values = { ...this.caseForm.value, tags: this.tags.map(v => v.name).toString() };
-
-
+  async createCase(step1, step2) {
 
     try {
+      let values = { ...this.caseForm.value, tags: this.tags.map(v => v.name).toString() };
 
       this.case = await this.http.createCase(values);
 
       if (this.contactsList.findIndex(v => values.client === v.fullName) > -1) {
 
+
+        this.stepper.linear = false;
         this.stepper.selectedIndex = 2;
+        step1.completed = true;
+        step2.completed = true;
+        this.stepper.linear = true;
+
       } else {
 
+        this.stepper.linear = false;
         this.stepper.selectedIndex = 1;
+        step1.completed = true;
+        this.stepper.linear = true;
+
       }
 
     } catch (error) {
@@ -109,19 +120,30 @@ export class AddCaseComponent implements OnInit {
   }
 
   // client
-  async createClient() {
-
-    let values = { ...this.clientForm.value, birthday: this.clientForm.value.birthday.toDate() };
+  async createClient(step) {
 
     try {
+      let values = { ...this.clientForm.value };
 
-      let result = await this.http.createClient(values);
+      if (this.clientForm.value.birthday === '') {
+        delete values.birthday;
+      } else {
+        values.birthday = this.clientForm.value.birthday.toDate();
+      }
+
+      let result = await this.http.createContact(values);
 
       console.log(result);
 
+      this.stepper.linear = false;
+      step.completed = true;
       this.stepper.next();
+      this.stepper.linear = true;
 
     } catch (error) {
+
+      this.Swal.fire();
+
       console.log(error);
     }
   }

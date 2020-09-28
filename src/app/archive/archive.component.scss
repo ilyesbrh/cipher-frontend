@@ -104,10 +104,10 @@ $accent: mat-color($app-accent);
     display: grid;
 
     grid-template-columns: 1fr 20px 1fr;
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(5, auto);
 
-    column-gap: 12px;
-    row-gap: 32px;
+    column-gap: 4px;
+    row-gap: 16px;
 
     padding-top: 16px;
     padding-bottom: 8px;
@@ -119,12 +119,12 @@ $accent: mat-color($app-accent);
     background-color: white;
 
     cursor: pointer;
-    .title {
+    > .title {
       position: relative;
       margin-top: 0;
 
-      grid-column: span 1;
-      grid-row: span 1;
+      grid-column: 1 / span 3;
+      grid-row: 1 / 2;
 
       &:after {
         position: absolute;
@@ -137,25 +137,9 @@ $accent: mat-color($app-accent);
         content: attr(data-case-number);
       }
     }
-    .client {
-      grid-column: 2 / 4;
-      grid-row: span 1;
-
-      align-self: center;
-      justify-self: end;
-
-      width: fit-content;
-
-      border-radius: 24px;
-
-      background-color: rgb(238, 238, 238);
-      mat-icon {
-        margin-right: 8px;
-      }
-    }
     .separation {
       grid-column: 2 / span 1;
-      grid-row: 2 / 4;
+      grid-row: 2 / 5;
 
       width: 2px;
       height: 100%;
@@ -184,33 +168,45 @@ $accent: mat-color($app-accent);
       }
     }
 
-    .type-tag {
-      grid-column: span 1;
-      grid-row: span 1;
-
-      align-self: center;
-      justify-self: self-start;
-
+    .client {
       width: fit-content;
 
       border-radius: 24px;
 
-      background-color: rgb(238, 238, 238);
+      padding: 0;
       mat-icon {
         margin-right: 8px;
       }
     }
-    .favorite {
-      grid-column: 3 / 4;
-      grid-row: span 1;
 
-      align-self: center;
-      justify-self: end;
+    .tags {
+      grid-column: 1 / span 3;
+      grid-row: span 1;
+      .type-tag {
+        width: fit-content;
+
+        margin-right: 4px;
+        margin-bottom: 4px;
+
+        border-radius: 24px;
+
+        background-color: rgb(238, 238, 238);
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .favorite {
+      position: absolute;
+      right: 4px;
+      top: 4px;
 
       mat-icon {
         margin: 8px;
       }
     }
+
     @media (max-width: 600) {
     }
   }

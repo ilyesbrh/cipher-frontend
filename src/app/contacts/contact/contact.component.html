@@ -1,30 +1,73 @@
-<mat-form-field appearance="fill">
-  <mat-label>name</mat-label>
-  <input matInput type="text" placeholder="user name..." [formControl]="nameFilter">
-  <mat-icon matSuffix>account_box</mat-icon>
-</mat-form-field>
+<div class="background"></div>
+<swal #swalError title="Error" text="Something wrong happens verify your input and try again" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
 
-<mat-form-field appearance="fill">
-  <mat-label>Email</mat-label>
-  <input matInput type="text" placeholder="email..." [formControl]="emailFilter">
-  <mat-icon matSuffix>email</mat-icon>
-</mat-form-field>
+<ng-container [formGroup]="clientForm">
+  <!-- Client full name -->
+  <mat-form-field appearance="fill">
+    <mat-label>Full name</mat-label>
+    <input matInput placeholder="full name..." formControlName="fullName" required>
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client father-->
+  <mat-form-field appearance="fill">
+    <mat-label>Father name</mat-label>
+    <input matInput placeholder="father name..." formControlName="father">
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client mother-->
+  <mat-form-field appearance="fill">
+    <mat-label>Mother name</mat-label>
+    <input matInput placeholder="mother name..." formControlName="mother">
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client phone -->
+  <mat-form-field appearance="fill">
+    <mat-label>Phone number</mat-label>
+    <input matInput placeholder="phone number..." formControlName="phone">
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client address -->
+  <mat-form-field appearance="fill">
+    <mat-label>Address</mat-label>
+    <input matInput placeholder="address..." formControlName="address">
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client email -->
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="email..." formControlName="email">
+    <mat-icon matSuffix>account_circle</mat-icon>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+  <!-- Client birthday -->
+  <mat-form-field appearance="fill">
+    <mat-label>Birthday</mat-label>
 
-<mat-form-field appearance="fill">
-  <mat-label>Phone number</mat-label>
-  <input matInput type="text" placeholder="user phone number..." [formControl]="phoneFilter">
-  <mat-icon matSuffix>contacts</mat-icon>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Address</mat-label>
-  <input matInput type="text" placeholder="user address..." [formControl]="addressFilter">
-  <mat-icon matSuffix>location_on</mat-icon>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Note</mat-label>
-  <textarea matInput type="text" placeholder="note about user..." [formControl]="noteFilter" rows="3"></textarea>
-</mat-form-field>
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose birthday" formControlName="birthday">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 
-<div class="actions">
-  <button mat-raised-button color="primary">Save</button>
-</div>
+    <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="false" [hideTime]="true">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+  <!-- Client description -->
+  <mat-form-field appearance="fill">
+    <mat-label>description</mat-label>
+    <textarea matInput rows="6" placeholder="description..." formControlName="description">
+                </textarea>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+
+  <div class="actions">
+
+    <button mat-button color="warn" (click)="delete()">Delete</button>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+  </div>
+
+</ng-container>

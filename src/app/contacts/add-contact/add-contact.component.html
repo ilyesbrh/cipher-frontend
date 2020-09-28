@@ -1,0 +1,83 @@
+<div class="background"></div>
+<swal #swalError title="Invalid input" text="Please verify your inputs" icon="error" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+<div class="background"></div>
+<swal #swalSuccess title="Contact Created" text="Your contact created successfully" icon="info"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+
+<div class="content">
+  <h2>Add new contact</h2>
+
+  <form [formGroup]="clientForm">
+    <ng-template matStepLabel>Client</ng-template>
+    <p class="description">
+      Your client does not exist in database please fill information's below and
+      click on save
+    </p>
+    <!-- Client full name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Full name</mat-label>
+      <input matInput placeholder="full name..." formControlName="fullName" required>
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client father-->
+    <mat-form-field appearance="outline">
+      <mat-label>Father name</mat-label>
+      <input matInput placeholder="father name..." formControlName="father">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client mother-->
+    <mat-form-field appearance="outline">
+      <mat-label>Mother name</mat-label>
+      <input matInput placeholder="mother name..." formControlName="mother">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client phone -->
+    <mat-form-field appearance="outline">
+      <mat-label>Phone number</mat-label>
+      <input matInput placeholder="phone number..." formControlName="phone">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client address -->
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input matInput placeholder="address..." formControlName="address">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client email -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="email..." formControlName="email">
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- Client birthday -->
+    <mat-form-field appearance="outline">
+      <mat-label>Birthday</mat-label>
+
+      <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose birthday" formControlName="birthday">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+      <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="false" [hideTime]="true">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+    <!-- Client description -->
+    <mat-form-field appearance="outline">
+      <mat-label>description</mat-label>
+      <textarea matInput rows="6" placeholder="description..." formControlName="description">
+              </textarea>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+    <!-- create Client -->
+    <div>
+      <button mat-raised-button color="primary" (click)="createContact()">Save</button>
+    </div>
+  </form>
+</div>

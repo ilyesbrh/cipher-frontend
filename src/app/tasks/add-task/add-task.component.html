@@ -1,0 +1,69 @@
+<div class="background"></div>
+<swal #swalError title="Invalid input" text="Please verify your inputs" icon="error" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+<div class="background"></div>
+<swal #swalSuccess title="Contact Created" text="Your contact created successfully" icon="info"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+
+<div class="content">
+  <h2>Add new Task</h2>
+
+  <form [formGroup]="taskForm">
+    <ng-template matStepLabel>Task</ng-template>
+    <p class="description">
+      please add task information below
+    </p>
+
+
+    <!-- Task Title -->
+    <mat-form-field appearance="outline" class="title-field">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Task name..." formControlName="title" required>
+      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+    <!-- Task Deadline-->
+    <mat-form-field appearance="outline">
+      <mat-label>Deadline</mat-label>
+      <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="deadline" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+      <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+      </ngx-mat-datetime-picker>
+    </mat-form-field>
+
+    <!-- Task Alarm ON/OFF toggle -->
+    <mat-slide-toggle labelPosition="before" class="toggle" formControlName="isAlarmActive">Remind me</mat-slide-toggle>
+
+    <mat-divider [inset]="true">
+    </mat-divider>
+
+    <p>Select related case</p>
+    <!-- Task case -->
+    <mat-form-field appearance="outline">
+      <mat-label>Case name</mat-label>
+      <input matInput placeholder="case name..." formControlName="casesId" [matAutocomplete]="auto">
+      <mat-hint>put case name</mat-hint>
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <!-- Task  Description-->
+    <mat-form-field appearance="outline">
+      <mat-label>description</mat-label>
+      <textarea matInput placeholder="task description..." rows="5" formControlName="description"></textarea>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+
+
+    <!-- create Task -->
+    <div>
+      <button mat-raised-button color="primary" (click)="createTask()">Save</button>
+    </div>
+  </form>
+</div>

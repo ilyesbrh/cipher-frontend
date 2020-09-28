@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RestService } from '../globalServices/rest.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Chart from 'chart.js';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
+import { RestService } from '../auth-service/REST.service';
 
 const colors: any = {
   red: {

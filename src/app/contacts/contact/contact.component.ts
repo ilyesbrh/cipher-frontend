@@ -1,8 +1,9 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormGroup, FormControl } from '@angular/forms';
-import { RestService } from 'src/app/globalServices/rest.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { RestService } from 'src/app/auth-service/REST.service';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   templateUrl: './contact.component.html',
@@ -10,31 +11,85 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ContactComponent implements OnInit {
 
-  filter: FormGroup;
-  nameFilter = new FormControl('');
-  emailFilter = new FormControl('');
-  phoneFilter = new FormControl('');
-  addressFilter = new FormControl('');
-  noteFilter = new FormControl('');
+  @ViewChild('swalError', { static: true }) private error: SwalComponent;
 
+  userId;
+
+  filter: FormGroup;
+
+  clientForm: FormGroup = new FormGroup({
+    fullName: new FormControl('', [Validators.required]),
+    phone: new FormControl(''),
+    address: new FormControl(''),
+    email: new FormControl(''),
+    description: new FormControl(''),
+    father: new FormControl(''),
+    mother: new FormControl(''),
+    birthday: new FormControl(''),
+  });
   constructor(
+    private http: RestService,
     public dialogRef: MatDialogRef<ContactComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
-    this.filter = new FormGroup({
-      name: this.nameFilter,
-      email: this.emailFilter,
-      phone: this.phoneFilter,
-      address: this.addressFilter,
-      note: this.noteFilter,
-    });
+
   }
 
 
   ngOnInit() {
+
+    const { id, createdAt, updatedAt, ...data } = this.data;
+
+    this.userId = id;
+
+    this.clientForm.setValue(data);
   }
 
   close(): void {
     this.dialogRef.close();
+  }
+
+  async save() {
+    try {
+
+      let values = { ...this.clientForm.value };
+
+      if (this.clientForm.value.birthday === '' || this.clientForm.value.birthday == null) {
+        delete values.birthday;
+      } else {
+        if (typeof this.clientForm.value.birthday === 'string') {
+
+          values.birthday = new Date(this.clientForm.value.birthday);
+        } else
+          values.birthday = this.clientForm.value.birthday.toDate();
+      }
+
+      let result = await this.http.updateContact(this.userId, values);
+
+      this.dialogRef.close(true);
+
+    } catch (error) {
+
+      this.error.fire();
+
+      console.log(error);
+    }
+  }
+
+  async delete() {
+
+    try {
+
+      let result = await this.http.deleteContact(this.userId);
+
+      this.dialogRef.close(true);
+
+    } catch (error) {
+
+      this.error.fire();
+
+      console.log(error);
+    }
+
   }
 }
 

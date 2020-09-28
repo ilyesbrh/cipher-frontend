@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RestService } from '../globalServices/rest.service';
+import { RestService } from '../auth-service/REST.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

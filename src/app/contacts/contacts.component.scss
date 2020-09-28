@@ -26,6 +26,11 @@ $accent: mat-color($app-accent);
 
   overflow: auto;
 }
+.add-fab {
+  position: fixed;
+  bottom: 36px;
+  right: 36px;
+}
 
 .title {
   grid-column: 1 / end;

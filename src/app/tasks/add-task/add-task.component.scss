@@ -75,6 +75,13 @@ $accent: mat-color($app-accent, 900);
       margin-bottom: 32px;
     }
 
+    .toggle {
+      width: 100%;
+      margin-bottom: 18px;
+    }
+    ::ng-deep .mat-slide-toggle-bar {
+      margin-left: auto;
+    }
     mat-form-field {
       width: 100%;
       margin-bottom: 8px;
