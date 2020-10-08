@@ -17,6 +17,7 @@ const CONTACT_LINK = `${ROOT}contacts`;
 })
 export class RestService {
 
+
   constructor(private http: HttpClient) {
   }
 
@@ -152,6 +153,17 @@ export class RestService {
       return v;
     }));
 
+  }
+  getCase(id: any) {
+    const filter = `
+    {
+    "include": [
+     {"relation" :"tasks"},
+     {"relation" : "attachments"}
+     ]
+    }`
+
+    return this.http.get(CASES_LINK + '/' + id, { params: { filter } }).toPromise();
   }
 
 

@@ -1,6 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
+import { RestService } from '../auth-service/REST.service';
 
 @Component({
   selector: 'app-case-view',
@@ -9,9 +10,11 @@ import { ViewportScroller } from '@angular/common';
 })
 export class CaseViewComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private viewportScroller: ViewportScroller) { }
+  constructor(private route: ActivatedRoute, private viewportScroller: ViewportScroller,public api:RestService) { }
+  case :any;
+  async ngOnInit() {
+    this.case = await this.api.getCase(this.route.snapshot.params.id);    
 
-  ngOnInit() {
     this.route.fragment.subscribe(f => {
       console.log(f);
 
