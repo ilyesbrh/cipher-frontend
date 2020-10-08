@@ -12,7 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 /* Angular material components */
-import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule } from '@angular/material';
+import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MatRadioButton, MatRadioModule } from '@angular/material';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
@@ -34,6 +34,7 @@ import { TokenInterceptor } from './auth-service/token-interceptor';
 import { AddCaseComponent } from './Forms/add-case/add-case.component';
 import { AddContactComponent } from './contacts/add-contact/add-contact.component';
 import { AddTaskComponent } from './tasks/add-task/add-task.component';
+import { FilterComponent } from './tasks/filter/filter.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -56,7 +57,8 @@ export function momentAdapterFactory() {
     overlayViewComponent,
     AddCaseComponent,
     AddContactComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
@@ -83,6 +85,7 @@ export function momentAdapterFactory() {
     MatListModule,
     MatSelectModule,
     NgxMatFileInputModule,
+    MatRadioModule,
     /* datetime Picker */
     NgxMatDatetimePickerModule,
     MatDatepickerModule,
@@ -92,7 +95,7 @@ export function momentAdapterFactory() {
     /* POPUP alert */
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
-  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent],
+  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent, FilterComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -26,6 +26,11 @@ body {
   padding-right: 0;
 }
 
+.filter .mat-dialog-container {
+  overflow: auto;
+  height: 90vh;
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
   width: 7px;

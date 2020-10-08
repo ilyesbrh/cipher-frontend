@@ -52,7 +52,7 @@ export class AddCaseComponent implements OnInit {
   // CLient
   client: any;
   clientForm: FormGroup = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
+    fullName: new FormControl({ value: '', disabled: true }, [Validators.required]),
     phone: new FormControl(''),
     address: new FormControl(''),
     email: new FormControl(''),
@@ -88,7 +88,7 @@ export class AddCaseComponent implements OnInit {
   async createCase(step1, step2) {
 
     try {
-      let values = { ...this.caseForm.value, tags: this.tags.map(v => v.name).toString() };
+      const values = { ...this.caseForm.value, tags: this.tags.map(v => v.name).toString() };
 
       this.case = await this.http.createCase(values);
 
@@ -102,6 +102,8 @@ export class AddCaseComponent implements OnInit {
         this.stepper.linear = true;
 
       } else {
+
+        this.clientForm.setValue({ ...this.clientForm.value, fullName: values.client });
 
         this.stepper.linear = false;
         this.stepper.selectedIndex = 1;
@@ -123,7 +125,7 @@ export class AddCaseComponent implements OnInit {
   async createClient(step) {
 
     try {
-      let values = { ...this.clientForm.value };
+      const values = { ...this.clientForm.value, fullName: this.clientForm.controls.fullName.value };
 
       if (this.clientForm.value.birthday === '') {
         delete values.birthday;
@@ -131,7 +133,7 @@ export class AddCaseComponent implements OnInit {
         values.birthday = this.clientForm.value.birthday.toDate();
       }
 
-      let result = await this.http.createContact(values);
+      const result = await this.http.createContact(values);
 
       console.log(result);
 

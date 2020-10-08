@@ -1,0 +1,53 @@
+<h2>Tasks filter</h2>
+
+<h4>Title</h4>
+
+<mat-form-field appearance="outline">
+  <input matInput placeholder="Title" [formControl]="data.controls.search">
+</mat-form-field>
+
+<mat-divider></mat-divider>
+
+<h4>Deadline</h4>
+
+<mat-form-field appearance="outline" class="start-date">
+  <mat-label>Start</mat-label>
+
+  <input matInput [ngxMatDatetimePicker]="picker" placeholder="Start date" [formControl]="data.controls.startDate">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+  <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+  </ngx-mat-datetime-picker>
+</mat-form-field>
+
+<mat-form-field appearance="outline">
+  <mat-label>End</mat-label>
+
+  <input matInput [ngxMatDatetimePicker]="picker2" placeholder="End date" [formControl]="data.controls.endDate">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+  <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+  </ngx-mat-datetime-picker>
+</mat-form-field>
+
+<mat-divider></mat-divider>
+
+<h4>Sort Tasks</h4>
+
+<mat-form-field appearance="outline">
+  <mat-label>Sort by</mat-label>
+  <mat-select placeholder="Placeholder" [formControl]="data.controls.sortBy">
+    <mat-option value="title">Title</mat-option>
+    <mat-option value="deadline">Deadline</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-divider></mat-divider>
+
+<mat-slide-toggle [formControl]="data.controls.isDone">Show Done Tasks</mat-slide-toggle>
+
+<mat-divider></mat-divider>
+
+<mat-slide-toggle [formControl]="data.controls.isAlarmActive">Show Activated Alarm</mat-slide-toggle>
+
+<button mat-raised-button color="primary" (click)="dialogRef.close()">Close</button>

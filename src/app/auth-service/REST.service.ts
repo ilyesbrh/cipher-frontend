@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 const ROOT = environment.API_URL;
 const CLIENTS_LINK = `${ROOT}users/`;
@@ -15,8 +16,6 @@ const CONTACT_LINK = `${ROOT}contacts`;
   providedIn: 'root'
 })
 export class RestService {
-
-
 
   constructor(private http: HttpClient) {
   }
@@ -47,10 +46,30 @@ export class RestService {
     return this.http.get(USER_LINK).toPromise();
   }
 
+  /* TASKS */
+  getTasks(filter) {
+
+    console.log('[GETUSER QUERY]');
+
+    return this.http.get(TASKS_LINK, { params: { filter } }).toPromise();
+  }
+
+  createTask(values: any): any {
+    return this.http.post(TASKS_LINK, values).toPromise();
+  }
+
+  updateTask(id: any, data: any) {
+    return this.http.patch(TASKS_LINK + '/' + id, data).toPromise();
+  }
+
+  deleteTask(id) {
+    return this.http.delete(TASKS_LINK + id).pipe(map((res) => { console.log(res); return res; }));
+  }
+
   /* CONTACTS */
   getAllContacts(): any {
 
-    let filter = new HttpParams();
+    const filter = new HttpParams();
     filter.append('filter', `
     {
       "fields": {
@@ -70,7 +89,7 @@ export class RestService {
     return this.http.get(CONTACT_LINK, { params: filter });
   }
   createContact(values) {
-    return this.http.post(TASKS_LINK, values).toPromise();
+    return this.http.post(CONTACT_LINK, values).toPromise();
   }
   updateContact(id, data) {
     console.log('[UPDATE CLIENT QUERY]');

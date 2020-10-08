@@ -3,8 +3,8 @@
   <button mat-icon-button>
     <mat-icon>search</mat-icon>
   </button>
-  <input type="text" [formControl]="search">
-  <button mat-icon-button>
+  <input type="text" [formControl]="filter.controls.search">
+  <button mat-icon-button (click)="openFilter()">
     <mat-icon>settings</mat-icon>
   </button>
   <button mat-mini-fab color="primary" class="add" (click)="createTask()">
@@ -12,26 +12,22 @@
   </button>
 </div>
 <div class="tasks-list">
-  <div mat-ripple class="task" *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" (click)="openTask()">
-    <h3 class="title">task title here</h3>
-    <button mat-icon-button class="delete" (mousedown)="$event.stopPropagation()">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <span class="description">need to be there in time don't be late its too important , and bring things with
-      you</span>
+  <div mat-ripple class="task" *ngFor="let task of tasks" (click)="openTask(task)">
+    <h3 class="title">{{task.title}}</h3>
+
+    <span class="description">{{task.description}}</span>
 
     <mat-divider class="divider"></mat-divider>
 
-    <mat-slide-toggle (mousedown)="$event.stopPropagation()" labelPosition="before" class="alarm">
-      <div class="text">
-        <mat-icon class="icon">alarm</mat-icon><span class="value">22/10/1997 1:50 PM</span>
-      </div>
-    </mat-slide-toggle>
+    <div class="text">
+      <mat-icon class="icon">alarm</mat-icon><span class="value">{{task.deadline | date : 'dd/M/yyyy, h:mm a'}}</span>
+    </div>
+
 
     <mat-divider class="divider"></mat-divider>
     <div class="case">
 
-      <h3 class="name">Case name here</h3>
+      <h3 class="name">{{task.cases.name}}</h3>
 
       <button mat-mini-fab color="primary" class="client">AB</button>
       <button mat-mini-fab color="warn">IB</button>
