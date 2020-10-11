@@ -1,10 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Route, Router, ActivatedRoute } from '@angular/router';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import * as moment from 'moment';
-import { Observable, pipe } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 import { RestService } from 'src/app/auth-service/REST.service';
 
 @Component({
@@ -32,10 +29,15 @@ export class AddTaskComponent implements OnInit {
   casesList = [];
 
 
-  constructor(private http: RestService, private router: Router) { }
+  constructor(private http: RestService, private route: ActivatedRoute, private router: Router) { }
 
   async ngOnInit() {
-    this.casesList = (await this.http.getArchive(0, 0).toPromise()) as any[];
+
+    const id = this.route.snapshot.params.id || null;
+
+    this.taskForm.controls.casesId.setValue(id);
+
+    this.casesList = (await this.http.getCasesList(0, 0, []).toPromise()) as any[];
 
   }
 

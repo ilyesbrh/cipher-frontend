@@ -50,8 +50,9 @@
 
 <div class="requests-panel">
 
-  <button mat-raised-button color="primary" class="create-btn" [routerLink]="[ '/home/archive/add']">Create new
-    case</button>
+  <button mat-fab color="primary" class="add-fab" [routerLink]="[ '/home/archive/add']">
+    <mat-icon>add</mat-icon>
+  </button>
 
   <div class="case-card" matRipple *ngFor="let item of OBJECT_VALUE.data" (click)="openCase(item)">
     <h3 class="title" [attr.data-case-number]="item.number">{{item.name}}</h3>
@@ -88,7 +89,7 @@
     </div>
     <div class="attribute">
       <mat-icon>assignment_turned_in</mat-icon>
-      <span>{{item.tasksNumber}}</span>
+      <span>{{item.tasks?item.tasks.length:0}}</span>
     </div>
 
     <div class="tags">

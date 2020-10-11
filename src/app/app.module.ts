@@ -12,7 +12,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 /* Angular material components */
-import { MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule, MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule, MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule, MatRadioButton, MatRadioModule } from '@angular/material';
+import {
+  MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule,
+  MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule,
+  MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule,
+  MatRadioButton, MatRadioModule, MatProgressSpinnerModule
+} from '@angular/material';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
@@ -35,6 +40,9 @@ import { AddCaseComponent } from './Forms/add-case/add-case.component';
 import { AddContactComponent } from './contacts/add-contact/add-contact.component';
 import { AddTaskComponent } from './tasks/add-task/add-task.component';
 import { FilterComponent } from './tasks/filter/filter.component';
+import { AddAttachmentComponent } from './case-view/add-attachment/add-attachment.component';
+import { AddTimelineComponent } from './case-view/add-timeline/add-timeline.component';
+import { AddFeesComponent } from './case-view/add-fees/add-fees.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -58,7 +66,10 @@ export function momentAdapterFactory() {
     AddCaseComponent,
     AddContactComponent,
     AddTaskComponent,
-    FilterComponent
+    FilterComponent,
+    AddAttachmentComponent,
+    AddTimelineComponent,
+    AddFeesComponent
   ],
   imports: [
     BrowserModule,
@@ -86,6 +97,7 @@ export function momentAdapterFactory() {
     MatSelectModule,
     NgxMatFileInputModule,
     MatRadioModule,
+    MatProgressSpinnerModule,
     /* datetime Picker */
     NgxMatDatetimePickerModule,
     MatDatepickerModule,
@@ -95,7 +107,7 @@ export function momentAdapterFactory() {
     /* POPUP alert */
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
-  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent, FilterComponent],
+  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent, FilterComponent, AddAttachmentComponent, AddTimelineComponent, AddFeesComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -20,7 +20,7 @@ export class TokenInterceptor implements HttpInterceptor {
     }
 
 
-    return <any>next.handle(request).pipe(catchError(error => {
+    return next.handle(request).pipe(catchError(error => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
 
         // this condition is for get refresh token request
@@ -29,10 +29,12 @@ export class TokenInterceptor implements HttpInterceptor {
         // without this line it will not throw error
         this.authService.logout();
         return throwError(error);
+      } else if (error instanceof HttpErrorResponse && error.status === 204) {
+        return of(request);
       } else {
         return throwError(error);
       }
-    }));
+    })) as any;
   }
 
   private addToken(request: HttpRequest<any>, token: string) {

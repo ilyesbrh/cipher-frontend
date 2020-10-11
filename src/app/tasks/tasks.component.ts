@@ -65,6 +65,8 @@ export class TasksComponent implements OnInit {
 
       this.tasks = await this.api.getTasks(JSON.stringify(Tempfilter));
 
+      console.log(this.tasks);
+
     });
   }
 
@@ -100,14 +102,16 @@ export class TasksComponent implements OnInit {
     const order = v.sortBy + ' ASC';
 
     // if where empty don't add it to filter
-    const filter = Object.keys(where).length === 0 ? { order } : { where, order };
+    let filter: any = Object.keys(where).length === 0 ? { order } : { where, order };
+
+    filter = { ...filter, include: [{ relation: 'cases' }] };
 
     console.log(JSON.stringify(filter));
     return filter;
   }
 
   createTask() {
-    this.router.navigate(['add'], { relativeTo: this.activeRoute });
+    this.router.navigate(['add/ '], { relativeTo: this.activeRoute });
   }
 
   openFilter() {

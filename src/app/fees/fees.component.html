@@ -3,7 +3,7 @@
 <div class="card">
   <mat-icon>description</mat-icon>
   <div class="infos">
-    <span class="title">19000.00 £</span>
+    <span class="title">{{this.totalPrices}}.00 DA</span>
     <span class="description">Total income</span>
   </div>
 </div>
@@ -11,14 +11,14 @@
 <div class="card">
   <mat-icon>archive</mat-icon>
   <div class="infos">
-    <span class="title">19000.00 £</span>
+    <span class="title">{{this.totalDetes}}.00 DA</span>
     <span class="description">Total debts</span>
   </div>
 </div>
 <div class="card">
   <mat-icon>cancel_presentation</mat-icon>
   <div class="infos">
-    <span class="title">90000.00 £</span>
+    <span class="title">{{this.totalPayed}}.00 DA</span>
     <span class="description">Total paid</span>
   </div>
 </div>
@@ -53,29 +53,29 @@
 
 <div class="requests-panel">
 
-  <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="expandPayment()">
+  <div class="case-card" matRipple *ngFor="let case of data" (click)="expandPayment(case)">
 
-    <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
+    <h2 class="title" [attr.data-case-number]="case.number">{{case.name}}</h2>
 
     <button mat-button class="client" (mousedown)="$event.stopPropagation()" (click)="gotoclient()">
-      <mat-icon>face</mat-icon> <span>Issam benmahbous</span>
+      <mat-icon>face</mat-icon> <span>{{case.client}}</span>
     </button>
 
     <div class="content">
 
       <div class="info">
         <div class="title">Total price</div>
-        <div class="amount">5000 DA</div>
+        <div class="amount">{{case.price}} DA</div>
       </div>
       <div class="separation"></div>
       <div class="info">
         <div class="title">Payed</div>
-        <div class="amount">5000 DA</div>
+        <div class="amount">{{case.price - case.totalDetes}} DA</div>
       </div>
       <div class="separation"></div>
       <div class="info">
         <div class="title">Debt</div>
-        <div class="amount">5000 DA</div>
+        <div class="amount">{{case.totalDetes}} DA</div>
       </div>
     </div>
 

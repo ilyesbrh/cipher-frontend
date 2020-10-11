@@ -39,7 +39,8 @@ export class ArchiveComponent implements OnInit {
   async ngOnInit() {
 
     // Load data from server
-    this.OBJECT_VALUE.data = await this.http.getArchive(this.OBJECT_VALUE.uiState.start, this.OBJECT_VALUE.uiState.end).toPromise();
+    this.OBJECT_VALUE.data =
+      await this.http.getCasesList(this.OBJECT_VALUE.uiState.start, this.OBJECT_VALUE.uiState.end, ['tasks']).toPromise();
 
     // decompress NOTE: no need for a separated function now
     this.OBJECT_VALUE.data = this.OBJECT_VALUE.data.map(v => {

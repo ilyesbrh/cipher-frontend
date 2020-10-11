@@ -1,180 +1,205 @@
-<div class="header" >
-  <div class="top">
-    <h2 class="title">{{case.name}}</h2>
-    <h3 class="case-number">{{case.number}}</h3>
-  </div>
-  <p class="description">{{case.description}}</p>
+<ng-container *ngIf="case; else elseTemplate">
 
-  <button mat-button class="client">
-    <mat-icon>face</mat-icon> <span>Issam benmahbous</span>
-  </button>
-  <div class="actions">
-    <button mat-mini-fab class="action">
-      <mat-icon>face</mat-icon>
-    </button>
-    <button mat-mini-fab class="action">
-      <mat-icon>face</mat-icon>
-    </button>
-    <button mat-fab class="action">
-      <mat-icon>face</mat-icon>
-    </button>
-  </div>
-</div>
+  <div class="header">
+    <div class="top">
+      <h2 class="title">{{case.name}}</h2>
+      <h3 class="case-number">{{case.number}}</h3>
+    </div>
+    <p class="description">{{case.description}}</p>
 
-<div class="case-infos">
-  <h2>Infos</h2>
-  <mat-form-field appearance="fill" *ngFor="let item of [1,2,3,4,5,6]">
-    <mat-label>Fill form field</mat-label>
-    <input matInput placeholder="Placeholder">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-  </mat-form-field>
-</div>
-
-<div class="attachments">
-  <h2 class="title"> Attachments</h2>
-  <button mat-raised-button color="primary" class="addBtn">Add file</button>
-  <mat-list class="list" role="list">
-    <mat-list-item matRipple class="item" role="listitem" *ngFor="let item of [1,2,3,4,5,6]">
-      <span class="name">Item 1</span>
-      <button mat-icon-button align="end" (mousedown)="$event.stopPropagation();">
+    <button mat-button class="client">
+      <mat-icon>face</mat-icon> <span>{{case.client}}</span>
+    </button>
+    <div class="actions">
+      <button color="warn" mat-mini-fab class="action">
         <mat-icon>delete</mat-icon>
-      </button></mat-list-item>
-  </mat-list>
-</div>
-
-<div class="tasks">
-  <h2>Tasks</h2>
-  <button mat-raised-button color="primary" class="addBtn">Add task</button>
-
-  <mat-accordion class="tasks-list">
-    <mat-expansion-panel *ngFor="let item of [1,2,3,4,5]" opened="true" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Task title
-        </mat-panel-title>
-        <mat-panel-description>
-          22/10/2020
-          <button mat-icon-button (click)="$event.stopPropagation();">
-            <mat-icon>checked</mat-icon>
-          </button>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-divider style="margin-bottom: 16px;"></mat-divider>
-
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label>Alarm</mat-label>
-
-        <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-
-        <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
-        </ngx-mat-datetime-picker>
-      </mat-form-field>
-
-      <mat-divider style="margin-bottom: 20px;"></mat-divider>
-
-      <mat-form-field class="description" appearance="fill">
-        <mat-label>Description</mat-label>
-        <textarea matInput rows="6" placeholder="some description"></textarea>
-      </mat-form-field>
-
-      <div class="actions">
-        <mat-slide-toggle class="alarm-toggle" labelPosition="before">Alarm</mat-slide-toggle>
-
-        <button mat-button color="warn">Delete</button>
-        <button mat-button>Cancel</button>
-        <button mat-raised-button color="primary">Save</button>
-      </div>
-
-    </mat-expansion-panel>
-
-  </mat-accordion>
-</div>
-
-<div id="payments" class="payments">
-  <h2>Payments</h2>
-  <button mat-raised-button color="primary" class="addBtn">Add transaction</button>
-
-  <mat-accordion class="payments-list">
-    <mat-expansion-panel *ngFor="let item of [1,2,3,4,5]" opened="true" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{'2000'}} DA
-        </mat-panel-title>
-        <mat-panel-description>
-          22/10/2020
-          <mat-icon>edit</mat-icon>
-
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-
-      <mat-form-field class="description" appearance="outline">
-        <mat-label>Amount</mat-label>
-        <input matInput rows="6" placeholder="some description">
-      </mat-form-field>
-
-      <mat-divider style="margin-bottom: 12px;"></mat-divider>
-
-      <mat-slide-toggle>Received</mat-slide-toggle>
-
-      <mat-divider style="margin-bottom: 12px;margin-top:12px"></mat-divider>
-
-      <div class="actions">
-        <button mat-button color="warn">Delete</button>
-        <button mat-raised-button color="primary">Save</button>
-      </div>
-
-    </mat-expansion-panel>
-
-  </mat-accordion>
-</div>
-
-
-<div class="timeline-container">
-  <div class="page-header">
-    <h1 id="timeline">Timeline</h1>
+      </button>
+      <button color="accent" mat-mini-fab class="action">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-fab color="primary" class="action">
+        <mat-icon>done</mat-icon>
+      </button>
+    </div>
   </div>
-  <ul class="timeline">
-    <li>
-      <div class="timeline-badge"><i class="glyphicon glyphicon-check"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Mussum ipsum cacilds</h4>
-          <p><small class="text-muted"><span class="material-icons">schedule</span> 11 hours ago via Twitter</small></p>
-        </div>
-        <div class="timeline-body">
-          <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
-            paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé
-            pra
-            quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa
-            nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
-        </div>
-      </div>
-    </li>
-    <li class="timeline-inverted">
-      <div class="timeline-badge warning"><i class="glyphicon glyphicon-credit-card"></i></div>
-      <div class="timeline-panel">
-        <div class="timeline-heading">
-          <h4 class="timeline-title">Mussum ipsum cacilds</h4>
-        </div>
-        <div class="timeline-body">
-          <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris,
-            paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé
-            pra
-            quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa
-            nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
-          <p>Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus
-            quis,
-            vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque
-            neque et turpis posuere pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat
-            elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit
-            auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, non scelerisque
-            augue. Aenean justo massa.</p>
-        </div>
-      </div>
-    </li>
 
-  </ul>
-</div>
+  <div class="case-infos">
+
+    <div class="state" [ngStyle]="{'background-color': case.state==='Active'?'green':'red'}"></div>
+
+    <h2>Infos</h2>
+    <mat-form-field appearance="outline">
+      <mat-label>Opponent</mat-label>
+      <input matInput [value]="case.opponent" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput [value]="case.location" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input matInput [value]="case.price" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Judgement</mat-label>
+      <input matInput [value]="case.Jugement" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Judgement Date</mat-label>
+      <input matInput [value]="case.JugementDate | date" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Total debt</mat-label>
+      <input matInput [value]="case.totalDetes" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Created At</mat-label>
+      <input matInput [value]="case.createdAt | date" disabled>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Update At</mat-label>
+      <input matInput [value]="case.updatedAt | date" disabled>
+
+    </mat-form-field>
+
+    <div class="tags">
+      <button mat-button class="tag" *ngFor="let item of case.tags.split(',')">{{item}}</button>
+    </div>
+  </div>
+
+  <div class="tasks">
+    <h2>Tasks</h2>
+    <button mat-raised-button color="primary" class="addBtn" [routerLink]="[ '/home/tasks/add/'+case.id]">
+      Add task</button>
+
+    <mat-list class="tasks-list" role="list">
+      <mat-list-item matRipple class="task" role="listitem" *ngFor="let task of case.tasks; let i=index"
+        (click)="openTask(task)">
+        <div class="title">{{task.title | slice:0:16}}{{task.title.length > 16?'...':''}}</div>
+        <div class="deadline" [ngStyle]="{'color': task.isAlarmActive?'blue':'red'}">
+          <mat-icon>alarm</mat-icon><span>{{task.deadline | date}}</span>
+        </div>
+        <button mat-mini-fab color="primary" [disabled]="task.isDone" (mousedown)="$event.stopPropagation();"
+          (click)="markAsDone(task);$event.stopPropagation();">
+          <mat-icon>done</mat-icon>
+        </button>
+
+      </mat-list-item>
+    </mat-list>
+
+  </div>
+
+  <div class="attachments">
+    <h2 class="title"> Attachments</h2>
+    <button mat-raised-button color="primary" class="addBtn" (click)="addAttachment()">Add file</button>
+    <mat-list class="list" role="list">
+      <mat-list-item matRipple class="item" role="listitem" *ngFor="let item of case.attachments">
+        <span class="name">{{item.name}}</span>
+        <button mat-icon-button align="end" (click)="deleteAttachment(item);$event.stopPropagation();"
+          (mousedown)="$event.stopPropagation();">
+          <mat-icon>delete</mat-icon>
+        </button></mat-list-item>
+    </mat-list>
+  </div>
+
+  <div id="payments" class="payments">
+    <h2>Payments</h2>
+
+    <button mat-mini-fab color="primary" class="addBtn" (click)="addTransaction()">
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <mat-accordion class="payments-list">
+      <mat-expansion-panel *ngFor="let transaction of case.fees" hideToggle>
+        <mat-expansion-panel-header [ngStyle]="{'background-color': transaction.isReceived?'#ccc':''}">
+          <mat-panel-title>
+            {{transaction.amount}} DA
+          </mat-panel-title>
+          <mat-panel-description>
+            {{transaction.updatedAt | date}}
+            <mat-icon>edit</mat-icon>
+
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+
+        <mat-form-field class="amount" appearance="outline">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" placeholder="XX.xx DA" [(ngModel)]="transaction.amount">
+          <button mat-icon-button matSuffix>
+            <mat-icon>save</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <div class="actions">
+          <mat-slide-toggle [(ngModel)]="transaction.isReceived">Received</mat-slide-toggle>
+          <button mat-button color="warn" class="delete" (click)="deleteFees(transaction)">Delete</button>
+          <button mat-raised-button color="primary" (click)="saveFees(transaction)">Save</button>
+        </div>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </div>
+
+  <div class="timeline-container">
+    <div class="page-header">
+      <h1 id="timeline">Timeline</h1>
+      <button mat-fab color="primary" (click)="addTimeline()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <ul class="timeline">
+      <li *ngFor="let action of case.timelines" [ngClass]="{'timeline-inverted': !action.side}">
+        <div class="timeline-badge" [ngClass]="{'primary': action.side , 'warning':!action.side}">
+          <mat-icon style="margin-top: 12px;">done</mat-icon>
+        </div>
+        <div class="timeline-panel">
+          <div class="timeline-heading">
+            <h4 class="timeline-title">{{action.title}}</h4>
+            <p><small style="display: flex;align-items: center;" class="text-muted">
+                <span class="material-icons" style="margin-right: 4px;">schedule</span>
+                <span>{{action.time | date}}</span></small>
+            </p>
+          </div>
+          <div class="timeline-body">
+            <p>{{action.description}}</p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+
+
+
+  <div class="background"></div>
+</ng-container>
+<ng-template #elseTemplate>
+  <div class="loader-container">
+    <mat-spinner color="7dc40c"></mat-spinner>
+  </div>
+</ng-template>
+<swal #swalSuccess title="Updated" text="Updated successfully" icon="info" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+<swal #swalError title="Error" text="Something wrong happens, please verify your inputs" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+<swal #swalConfirmation title="Confirmation" text="this action is irreversable , are you sure ?" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>

@@ -1,0 +1,23 @@
+<ng-container [formGroup]="attachmentsForm">
+  <h2>Add attachment</h2>
+  <!-- File name -->
+  <mat-form-field style="padding-bottom: 0;margin-bottom: 0;" appearance="outline" color="primary">
+    <mat-label>File name</mat-label>
+    <input matInput placeholder="file name" formControlName="name">
+  </mat-form-field>
+  <!-- file selection -->
+  <mat-form-field style="padding-bottom: 0;margin-bottom: 0;" appearance="outline" color="primary">
+    <mat-label>selected file</mat-label>
+    <ngx-mat-file-input formControlName="file">
+    </ngx-mat-file-input>
+  </mat-form-field>
+  <!-- Attachment description -->
+  <mat-form-field appearance="outline">
+    <mat-label>description</mat-label>
+    <textarea matInput rows="6" placeholder="description..." formControlName="description">
+                    </textarea>
+    <mat-hint></mat-hint>
+  </mat-form-field>
+
+  <button mat-raised-button style="width: 95%;" color="primary" (click)="send()">send</button>
+</ng-container>

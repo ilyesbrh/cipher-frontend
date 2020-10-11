@@ -27,6 +27,15 @@ $accent: mat-color($app-accent);
   overflow: auto;
 }
 
+.add-fab {
+  position: fixed;
+
+  bottom: 24px;
+  right: 24px;
+
+  transform: scale(1.2);
+}
+
 .title {
   grid-column: 1 / end;
   grid-row: span 1;
@@ -92,11 +101,6 @@ $accent: mat-color($app-accent);
   height: fit-content;
 
   margin-bottom: 16px;
-
-  .create-btn {
-    margin-top: 18px;
-    width: 250px;
-  }
 
   .case-card {
     @extend .mat-elevation-4;
@@ -211,6 +215,7 @@ $accent: mat-color($app-accent);
     }
   }
 }
+
 .search-bar-container {
   @extend .mat-elevation-4;
 

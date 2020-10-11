@@ -23,7 +23,8 @@ export class ContactsComponent implements OnInit {
 
   contacts = [];
 
-  constructor(private http: RestService, public dialog: MatDialog, public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
+  constructor(private http: RestService, public dialog: MatDialog, public api: RestService,
+    public router: Router, public activeRoute: ActivatedRoute) {
     this.filter = new FormGroup({
       name: this.nameFilter,
       email: this.emailFilter,

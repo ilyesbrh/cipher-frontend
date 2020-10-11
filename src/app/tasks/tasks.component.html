@@ -19,15 +19,15 @@
 
     <mat-divider class="divider"></mat-divider>
 
-    <div class="text">
+    <div class="text" [ngStyle]="{'color': task.isAlarmActive?'blue':'red'}">
       <mat-icon class="icon">alarm</mat-icon><span class="value">{{task.deadline | date : 'dd/M/yyyy, h:mm a'}}</span>
     </div>
 
 
     <mat-divider class="divider"></mat-divider>
-    <div class="case">
+    <div class="case" *ngIf="task.cases">
 
-      <h3 class="name">{{task.cases.name}}</h3>
+      <h3 class="name">{{task.cases.name | slice:0:22}}{{task.cases.name.length > 22 ? '...':''}}</h3>
 
       <button mat-mini-fab color="primary" class="client">AB</button>
       <button mat-mini-fab color="warn">IB</button>

@@ -31,7 +31,11 @@ export class TaskComponent implements OnInit {
     this.title.setValue(data.title);
     this.description.setValue(data.description);
     this.isAlarmActive.setValue(data.isAlarmActive);
-    this.deadline.setValue(moment.unix(1293683278));
+
+    const seconds = data.deadline / 1000;
+    console.log(moment.unix(seconds));
+
+    this.deadline.setValue(moment.unix(seconds));
 
   }
 
@@ -51,6 +55,14 @@ export class TaskComponent implements OnInit {
           isAlarmActive: this.isAlarmActive.value,
         }
       );
+
+
+      this.data.id = this.data.id;
+      this.data.title = this.title.value;
+      this.data.deadline = this.deadline.value.toDate().getTime();
+      this.data.description = this.description.value;
+      this.data.isAlarmActive = this.isAlarmActive.value;
+
       this.success.fire();
       await this.success.afterClose.subscribe(v => {
         this.dialogRef.close();

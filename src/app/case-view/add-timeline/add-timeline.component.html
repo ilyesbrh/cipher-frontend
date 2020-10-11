@@ -1,0 +1,34 @@
+<ng-container [formGroup]="TimelineForm">
+  <h2>New Timeline</h2>
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+
+    <input matInput placeholder="Title" formControlName="title">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date</mat-label>
+
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" formControlName="time">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+    <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="6" placeholder="some description" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Side</mat-label>
+    <mat-select placeholder="Placeholder" formControlName="side" name="item">
+      <mat-option [value]="true">Left</mat-option>
+      <mat-option [value]="false">Right</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="send()">send</button>
+</ng-container>

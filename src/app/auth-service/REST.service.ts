@@ -2,31 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
 
 const ROOT = environment.API_URL;
-const CLIENTS_LINK = `${ROOT}users/`;
+const USERS_LINK = `${ROOT}users/`;
 const LOGIN_LINK = `${ROOT}users/login`;
 const USER_LINK = `${ROOT}users/me`;
 const CASES_LINK = `${ROOT}cases`;
 const TASKS_LINK = `${ROOT}tasks`;
-const CONTACT_LINK = `${ROOT}contacts`;
+const FEES_LINK = `${ROOT}fees`;
+const CONTACTS_LINK = `${ROOT}contacts`;
+const ATTACHMENTS_LINK = `${ROOT}attachments`;
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-
   constructor(private http: HttpClient) {
-  }
-
-  addTransaction(v, id): any {
-    return this.http.post(CLIENTS_LINK + id + '/transactions', v).pipe(map((res) => { console.log(res); return res; })).toPromise();
-  }
-
-  deleteClient(id: any) {
-    return this.http.delete(CLIENTS_LINK + id).pipe(map((res) => { console.log(res); return res; }));
   }
 
   /* AUTHENTICATION */
@@ -47,24 +39,59 @@ export class RestService {
     return this.http.get(USER_LINK).toPromise();
   }
 
-  /* TASKS */
-  getTasks(filter) {
+  // CASES
+  getCasesList(start, end, relations) {
+    console.log('[GET CASES QUERY]');
 
-    console.log('[GETUSER QUERY]');
+    const filter = (start === 0 && end === 0)
+      ? { include: [...relations.map(v => { relation: v })] }
+      : { offset: start, limit: end, include: [...relations.map(v => { relation: v })] };
 
-    return this.http.get(TASKS_LINK, { params: { filter } }).toPromise();
+
+    return this.http.get(CASES_LINK, { params: { filter: JSON.stringify(filter) } }).pipe(map((v: any) => {
+
+      v.forEach(e => {
+        if (e.transactions) {
+          e.transactions = e.transactions.reverse();
+
+        }
+      });
+
+      return v;
+    }));
+
+  }
+  getCase(id: any) {
+    const filter = {
+      include: [
+        { relation: 'tasks' },
+        { relation: 'fees' },
+        { relation: 'timelines' },
+        { relation: 'attachments' }
+      ]
+    };
+
+    return this.http.get(CASES_LINK + '/' + id, { params: { filter: JSON.stringify(filter) } }).toPromise();
+  }
+  createCase(values: any) {
+    return this.http.post(CASES_LINK, values).toPromise();
   }
 
-  createTask(values: any): any {
-    return this.http.post(TASKS_LINK, values).toPromise();
+  /* FEES */
+  createFees(id, amount) {
+    return this.http.post(CASES_LINK + '/' + id + '/fees', { amount }).toPromise();
+  }
+  updateFees(caseId, feesId, fees) {
+    const where = { id: feesId };
+    return this.http.patch(CASES_LINK + '/' + caseId + '/fees/', fees, { params: { where: JSON.stringify(where) } }).toPromise();
+  }
+  deleteFees(caseId: any, feesId: any) {
+    const where = { id: feesId };
+    return this.http.delete(CASES_LINK + '/' + caseId + '/fees', { params: { where: JSON.stringify(where) } }).toPromise();
   }
 
-  updateTask(id: any, data: any) {
-    return this.http.patch(TASKS_LINK + '/' + id, data).toPromise();
-  }
-
-  deleteTask(id) {
-    return this.http.delete(TASKS_LINK + id).pipe(map((res) => { console.log(res); return res; }));
+  getStats() {
+    return this.http.get(FEES_LINK + '/stats').toPromise();
   }
 
   /* CONTACTS */
@@ -87,102 +114,57 @@ export class RestService {
         "updatedAt": false
       }
     }`);
-    return this.http.get(CONTACT_LINK, { params: filter });
+    return this.http.get(CONTACTS_LINK, { params: filter });
   }
   createContact(values) {
-    return this.http.post(CONTACT_LINK, values).toPromise();
+    return this.http.post(CONTACTS_LINK, values).toPromise();
   }
   updateContact(id, data) {
     console.log('[UPDATE CLIENT QUERY]');
 
-    return this.http.patch(CONTACT_LINK + '/' + id, data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+    return this.http.patch(CONTACTS_LINK + '/' + id, data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
   }
   deleteContact(id) {
-
-    return this.http.delete(CONTACT_LINK + '/' + id).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+    return this.http.delete(CONTACTS_LINK + '/' + id).toPromise();
   }
 
-  // CASES
-  createCase(values: any) {
-    return this.http.post(CASES_LINK, values).toPromise();
-  }
-  getArchive(start, end) {
-    console.log('[GET CASES QUERY]');
-
-    let filter = `
-    {
-      "offset": ${start},
-      "limit": ${end}
-    }
-    `
-
-    if (start === 0 && end === 0) {
-      filter = `
-      {
-        "fields": {
-          "id": true,
-          "name": true,
-          "number": false,
-          "price": false,
-          "description": false,
-          "opponent": false,
-          "client": false,
-          "tags": false,
-          "location": false,
-          "isSaved": false,
-          "state": false,
-          "Jugement": false,
-          "JugementDate": false,
-          "totalDetes": false,
-          "createdAt": false,
-          "updatedAt": false
-        }
-      }
-      `;
-    }
-
-    return this.http.get(CASES_LINK, { params: { filter } }).pipe(map((v: any) => {
-
-      v.forEach(e => {
-        if (e.transactions) {
-          e.transactions = e.transactions.reverse();
-
-        }
-      });
-
-      return v;
-    }));
-
-  }
-  getCase(id: any) {
-    const filter = `
-    {
-    "include": [
-     {"relation" :"tasks"},
-     {"relation" : "attachments"}
-     ]
-    }`
-
-    return this.http.get(CASES_LINK + '/' + id, { params: { filter } }).toPromise();
-  }
-
-
-  /* DATA MUTATE */
-
+  /* ATTACHMENTS */
   createAttachments(value: any, id: any) {
     return this.http.post(CASES_LINK + '/' + id + '/attachments', value).toPromise();
   }
+  deleteAttachment(attachmentId, caseId) {
 
-  updateProfile(editUser) {
-    console.log('[UPDATE PROFILE QUERY]');
-    console.log(editUser);
+    const where = { id: attachmentId };
 
-    return this.http.patch(USER_LINK, editUser);
+    return this.http.delete(CASES_LINK + '/' + caseId + '/attachments/', { params: { where: JSON.stringify(where) } }).toPromise();
+  }
+
+
+  /* TIMELINE */
+  createTimeline(id, value) {
+    return this.http.post(CASES_LINK + '/' + id + '/timelines', value).toPromise();
+  }
+
+  /* TASKS */
+  getTasks(filter) {
+
+    console.log('[GETUSER QUERY]');
+
+    return this.http.get(TASKS_LINK, { params: { filter } }).toPromise();
+  }
+  createTask(values: any): any {
+    return this.http.post(TASKS_LINK, values).toPromise();
+  }
+  updateTask(id: any, data: any) {
+    return this.http.patch(TASKS_LINK + '/' + id, data).toPromise();
+  }
+  deleteTask(id) {
+    return this.http.delete(TASKS_LINK + '/' + id).pipe(map((res) => { console.log(res); return res; }));
   }
 
   // addSolution(id, data) {
-  //   console.log('[ADDANOMALY QUERY]');
-  //   return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
+  // console.log('[ADDANOMALY QUERY]');
+  // return this.http.post(AddSolution + id + '/solutions/', data).pipe(catchError(val => { console.log(val); return null; })).toPromise();
   // }
 
 }

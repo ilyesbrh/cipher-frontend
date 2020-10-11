@@ -20,7 +20,7 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       { path: 'fees', component: FeesComponent },
       { path: 'tasks', component: TasksComponent },
-      { path: 'tasks/add', component: AddTaskComponent },
+      { path: 'tasks/add/:id', component: AddTaskComponent },
       { path: 'contacts', component: ContactsComponent },
       { path: 'contacts/add', component: AddContactComponent },
       { path: 'archive', component: ArchiveComponent },

@@ -30,23 +30,6 @@ export class AuthManagerService {
       }));
   }
 
-  AddAnomaly(): Observable<any> {
-
-    return of(environment.API_URL).pipe(
-      filter(apiUrl => !!apiUrl),
-      // https becomes wws, http becomes ws
-      map(apiUrl => apiUrl.replace(/^https/, 'wss') + `?token=${this.getJwtToken()}`),
-      switchMap(wsUrl => {
-        if (this.connection$) {
-          return this.connection$;
-        } else {
-          this.connection$ = webSocket(wsUrl);
-          return this.connection$;
-        }
-      }),
-      retryWhen((errors) => errors.pipe(delay(this.RETRY_SECONDS)))
-    );
-  }
   async logout() {
     this.router.navigate(['/login']);
     this.doLogoutUser();
