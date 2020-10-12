@@ -65,7 +65,7 @@ export class ArchiveComponent implements OnInit {
 
     // Load data from server
     this.OBJECT_VALUE.data =
-      await this.http.getCasesList({ offset: start, limit: end, include: ['tasks'] }).toPromise();
+      await this.http.getCasesList({ offset: start, limit: end, include: [{ relation: 'tasks' }] }).toPromise();
 
     // decompress NOTE: no need for a separated function now
     this.OBJECT_VALUE.data = this.OBJECT_VALUE.data.map(v => {
