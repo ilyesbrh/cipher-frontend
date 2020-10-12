@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { RestService } from './REST.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +13,29 @@ export class UiStateManagerService {
 
   // user object
   user = null;
-
+  // Stats Object
+  stats = null;
   // data
   newAnomalies: Array<any> = [];
   // Filters Data
   filter: Array<any>;
 
-  constructor(mediaMatcher: MediaMatcher) {
+  constructor(mediaMatcher: MediaMatcher, public api: RestService) {
 
     this.responsive = !mediaMatcher.matchMedia('(max-width: 900px)').matches;
     mediaMatcher.matchMedia('(max-width: 900px)')
       .addEventListener('change', e => this.responsive = !e.matches);
 
+  }
+
+
+  async getStats(): Promise<any> {
+
+    if (!this.stats) {
+      this.stats = await this.api.getStats() as any;
+    }
+
+    return this.stats;
   }
 
   public filterFunc(form: any, solvedAnomalies: Array<any>): Array<any> {

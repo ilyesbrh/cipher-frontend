@@ -7,3 +7,22 @@
     margin-right: auto;
   }
 }
+
+.case-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  width: 100%;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  input {
+    color: black;
+  }
+}

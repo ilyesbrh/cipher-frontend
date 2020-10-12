@@ -1,10 +1,9 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { RestService } from './REST.service';
-import { tap, mapTo, catchError, filter, map, switchMap, retryWhen, delay } from 'rxjs/operators';
-import { of, Observable } from 'rxjs';
-import { webSocket } from 'rxjs/webSocket';
-import { environment } from 'src/environments/environment';
+
+import { tap, mapTo, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { RestService } from '../REST.service';
 
 @Injectable({
   providedIn: 'root'

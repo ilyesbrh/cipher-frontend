@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { RestService } from '../../auth-service/REST.service';
+import { RestService } from '../../globalServices/REST.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import * as moment from 'moment';
@@ -22,6 +22,8 @@ export class TaskComponent implements OnInit {
   description = new FormControl('');
   isAlarmActive = new FormControl();
 
+  show = false;
+
   constructor(
     public dialogRef: MatDialogRef<TaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
     public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
@@ -38,7 +40,6 @@ export class TaskComponent implements OnInit {
     this.deadline.setValue(moment.unix(seconds));
 
   }
-
 
   ngOnInit() {
   }
@@ -72,7 +73,6 @@ export class TaskComponent implements OnInit {
     }
 
   }
-
   async delete() {
     try {
       await this.api.deleteTask(this.data.id).toPromise();
@@ -86,8 +86,8 @@ export class TaskComponent implements OnInit {
     }
 
   }
-
   close(): void {
     this.dialogRef.close();
   }
+
 }

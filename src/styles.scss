@@ -20,15 +20,19 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.test .mat-dialog-container {
+mat-icon {
+  max-width: 36px;
+}
+
+.user-dialog .mat-dialog-container {
   overflow: hidden;
   padding-left: 0;
   padding-right: 0;
 }
 
-.filter .mat-dialog-container {
+.overflow .mat-dialog-container {
   overflow: auto;
-  height: 90vh;
+  max-height: 90vh;
 }
 
 /* Scrollbar Styling */

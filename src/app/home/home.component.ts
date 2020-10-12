@@ -1,5 +1,5 @@
-import { RestService } from '../auth-service/REST.service';
-import { UiStateManagerService } from './../ui-state-manager.service';
+import { RestService } from '../globalServices/REST.service';
+import { UiStateManagerService } from '../globalServices/ui-state-manager.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { RestService } from 'src/app/auth-service/REST.service';
+import { RestService } from 'src/app/globalServices/REST.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';

@@ -1,11 +1,11 @@
-import { UiStateManagerService } from './../ui-state-manager.service';
+import { UiStateManagerService } from '../globalServices/ui-state-manager.service';
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { delay } from 'rxjs/operators';
 import { overlayViewComponent } from '../overlay-view/overlay-view.component';
-import { AuthManagerService } from '../auth-service/auth-manager.service';
+import { AuthManagerService } from '../globalServices/auth-service/auth-manager.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
     password: '12341234'
   }
 
-  constructor(public auth: AuthManagerService, public uiService: UiStateManagerService, public http: RestService, public route: Router, public dialog: MatDialog) { }
+  constructor(
+    public auth: AuthManagerService, public uiService: UiStateManagerService,
+    public http: RestService, public route: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.auth.isLoggedIn()) {

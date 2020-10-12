@@ -11,7 +11,6 @@ const CASES_LINK = `${ROOT}cases`;
 const TASKS_LINK = `${ROOT}tasks`;
 const FEES_LINK = `${ROOT}fees`;
 const CONTACTS_LINK = `${ROOT}contacts`;
-const ATTACHMENTS_LINK = `${ROOT}attachments`;
 
 @Injectable({
   providedIn: 'root'
@@ -40,13 +39,8 @@ export class RestService {
   }
 
   // CASES
-  getCasesList(start, end, relations) {
+  getCasesList(filter) {
     console.log('[GET CASES QUERY]');
-
-    const filter = (start === 0 && end === 0)
-      ? { include: [...relations.map(v => { relation: v })] }
-      : { offset: start, limit: end, include: [...relations.map(v => { relation: v })] };
-
 
     return this.http.get(CASES_LINK, { params: { filter: JSON.stringify(filter) } }).pipe(map((v: any) => {
 
@@ -61,6 +55,7 @@ export class RestService {
     }));
 
   }
+
   getCase(id: any) {
     const filter = {
       include: [
@@ -76,6 +71,13 @@ export class RestService {
   createCase(values: any) {
     return this.http.post(CASES_LINK, values).toPromise();
   }
+  updateCase(data) {
+    console.log('[UPDATE CASE QUERY]');
+
+    const where: any = { id: data.id };
+
+    return this.http.patch(CASES_LINK + '/' + data.id, data).toPromise();
+  }
 
   /* FEES */
   createFees(id, amount) {
@@ -90,6 +92,7 @@ export class RestService {
     return this.http.delete(CASES_LINK + '/' + caseId + '/fees', { params: { where: JSON.stringify(where) } }).toPromise();
   }
 
+  /* Stats */
   getStats() {
     return this.http.get(FEES_LINK + '/stats').toPromise();
   }

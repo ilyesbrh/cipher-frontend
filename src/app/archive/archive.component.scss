@@ -30,6 +30,8 @@ $accent: mat-color($app-accent);
 .add-fab {
   position: fixed;
 
+  z-index: 300;
+
   bottom: 24px;
   right: 24px;
 
@@ -100,7 +102,7 @@ $accent: mat-color($app-accent);
 
   height: fit-content;
 
-  margin-bottom: 16px;
+  margin-bottom: 120px;
 
   .case-card {
     @extend .mat-elevation-4;

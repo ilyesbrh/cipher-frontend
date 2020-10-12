@@ -95,6 +95,17 @@ $accent: mat-color($app-accent);
     .action {
       margin-left: 4px;
     }
+    .booked {
+      background-color: white;
+    }
+    .edit {
+      background-color: white;
+      color: black;
+    }
+    .delete {
+      background-color: white;
+      color: red;
+    }
   }
 }
 

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
 import { debounceTime } from 'rxjs/operators';
 
 @Component({
@@ -115,11 +115,11 @@ export class TasksComponent implements OnInit {
   }
 
   openFilter() {
-    this.dialog.open(FilterComponent, { data: this.filter, panelClass: 'filter' });
+    this.dialog.open(FilterComponent, { data: this.filter, panelClass: 'overflow' });
   }
 
   async openTask(task) {
-    this.dialog.open(TaskComponent, { data: task });
+    this.dialog.open(TaskComponent, { data: task, panelClass: 'overflow' });
   }
 
   async deleteTask(task) {

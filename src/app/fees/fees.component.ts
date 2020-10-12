@@ -1,6 +1,7 @@
+import { UiStateManagerService } from '../globalServices/ui-state-manager.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,7 +24,9 @@ export class FeesComponent implements OnInit {
   data: any;
 
 
-  constructor(public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
+  constructor(
+    public api: RestService, public uiState: UiStateManagerService,
+    public router: Router, public activeRoute: ActivatedRoute) {
     this.filter = new FormGroup({
       name: this.nameFilter,
       case: this.caseFilter,
@@ -34,13 +37,12 @@ export class FeesComponent implements OnInit {
 
   async ngOnInit() {
 
-    const { totalDetes, totalPrices, totalPayed } = await this.api.getStats() as any;
-
+    const { totalDetes, totalPrices, totalPayed } = await this.uiState.getStats();
     this.totalDetes = totalDetes;
     this.totalPrices = totalPrices;
     this.totalPayed = totalPayed;
 
-    this.data = await this.api.getCasesList(0, 0, []).toPromise();
+    this.data = await this.api.getCasesList({}).toPromise();
 
   }
 

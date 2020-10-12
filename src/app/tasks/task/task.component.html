@@ -35,6 +35,30 @@
   <textarea matInput rows="6" placeholder="some description" [formControl]="description"></textarea>
 </mat-form-field>
 
+<button mat-button *ngIf="data.cases" style="width: 100%;" (click)="show = !show">
+  <mat-icon>{{show?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+</button>
+
+<div *ngIf="show && data.cases" class="case-info">
+  <div class="header">
+    <h2>{{data.cases.name}}</h2>
+    <button mat-raised-button color="accent" [routerLink]="[ '/home/archive/'+data.cases.id]"
+      (click)="close();$event.stopPropagation()">View
+      Case</button>
+  </div>
+  <mat-form-field class="description" appearance="outline" style="width: 100%;">
+    <mat-label>Client</mat-label>
+    <input matInput placeholder="client name" [value]="data.cases.client" disabled>
+  </mat-form-field>
+  <mat-form-field class="description" appearance="outline" style="width: 100%;">
+    <mat-label>Opponent</mat-label>
+    <input matInput placeholder="opponent name" [value]="data.cases.opponent" disabled>
+  </mat-form-field>
+
+</div>
+
+<mat-divider *ngIf="show && data.cases" style="margin-bottom: 20px;"></mat-divider>
+
 <div class="actions">
   <mat-slide-toggle class="alarm-toggle" labelPosition="before" [formControl]="isAlarmActive">Alarm
   </mat-slide-toggle>

@@ -1,11 +1,14 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UiStateManagerService } from './../globalServices/ui-state-manager.service';
+import { TaskComponent } from './../tasks/task/task.component';
+import { MatDialog } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as Chart from 'chart.js';
 import { CalendarView, CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
-import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
+import { isSameDay, isSameMonth } from 'date-fns';
 import { Subject } from 'rxjs';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
+import * as moment from 'moment';
 
 const colors: any = {
   red: {
@@ -31,25 +34,27 @@ export class DashboardComponent implements OnInit {
 
   view: CalendarView = CalendarView.Month;
 
-  CalendarView = CalendarView;
+  calendarView = CalendarView;
 
   viewDate: Date = new Date();
 
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
   actions: CalendarEventAction[] = [
     {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
+      label: '<button mat-button>edit</button>',
+      a11yLabel: 'Edit',
+      onClick: ({ event }: { event: CalendarEvent }): void => {
+        this.handleEvent('Edited', event);
+      }
+    },
+    {
+      label: '<button mat-button>edit</button>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
     },
     {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
+      label: '<button mat-button>delete</button>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.events = this.events.filter((iEvent) => iEvent !== event);
@@ -60,66 +65,34 @@ export class DashboardComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
+  events: CalendarEvent[] = [];
 
-  activeDayIsOpen: boolean = true;
+  activeDayIsOpen = true;
+  stats = {
+    totalDetes: 0,
+    totalPrices: 0,
+    totalPayed: 0,
+    totalCases: 0,
+    totalActive: 0,
+    totalArchived: 0
+  };
 
+  tasks = [];
+  cases = [];
 
-  filter: FormGroup;
-  nameFilter = new FormControl('');
-  regionFilter = new FormControl('');
-  phoneFilter = new FormControl('');
-
-
-  constructor(public api: RestService, public router: Router, public activeRoute: ActivatedRoute) {
-    this.filter = new FormGroup({
-      name: this.nameFilter,
-      region: this.regionFilter,
-      phone: this.phoneFilter
-    });
-  }
+  constructor(
+    public api: RestService, public router: Router, public uiService: UiStateManagerService,
+    private dialog: MatDialog, public activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    let myChart = new Chart(document.getElementById('chartContainer'), {
+    /* get stats */
+    this.uiService.getStats().then(stats => {
+      this.stats = stats;
+      console.log(this.stats);
+    });
+
+    /* Init chart */
+    const myChart = new Chart(document.getElementById('chartContainer'), {
       type: 'bar',
       data: {
         labels: ['Jan', 'feb', 'mar', 'avr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
@@ -142,10 +115,48 @@ export class DashboardComponent implements OnInit {
     });
 
     myChart.render();
+
+    /* tasks filter */
+    const tasksFilter = {
+      where: { isDone: false },
+      order: 'deadline ASC',
+      include: [{ relation: 'cases' }]
+    };
+
+    // fetch tasks
+    this.api.getTasks(JSON.stringify(tasksFilter))
+      .then((tasks: any) => {
+        this.tasks = tasks;
+        tasks = tasks
+          .map(v =>
+            ({
+              title: v.title,
+              color: v.isAlarmActive ? colors.red : colors.blue,
+              start: moment.unix(v.deadline / 1000).toDate(),
+              meta: v
+            }));
+        this.events = [...tasks];
+      });
+
+    // cases filter
+    const filter = {
+      where: { isSaved: true },
+      order: 'updatedAt ASC'
+    };
+
+    // fetch cases
+    this.api.getCasesList(filter).subscribe(cases => {
+      this.cases = cases;
+    });
+
   }
 
-  gotoclient() {
+  gotoClient(c) {
 
+  }
+
+  openTask(task) {
+    this.dialog.open(TaskComponent, { data: task, panelClass: 'overflow' });
   }
 
   openCase() {
@@ -183,28 +194,8 @@ export class DashboardComponent implements OnInit {
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-  }
 
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+    this.dialog.open(TaskComponent, { data: event.meta, panelClass: 'overflow' });
   }
 
   setView(view) {

@@ -1,4 +1,4 @@
-import { UiStateManagerService } from './ui-state-manager.service';
+import { UiStateManagerService } from './globalServices/ui-state-manager.service';
 import { overlayViewComponent } from './overlay-view/overlay-view.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,7 +16,7 @@ import {
   MatRippleModule, MatListModule, MatFormFieldModule, MatButtonModule, MatIconModule, MatInputModule,
   MatSidenavModule, MatToolbarModule, MatButtonToggleModule, MatExpansionModule, MatSlideToggleModule,
   MatDatepickerModule, MatDialogModule, MatStepperModule, MatSelectModule, MatChipsModule, MatAutocompleteModule,
-  MatRadioButton, MatRadioModule, MatProgressSpinnerModule
+  MatRadioModule, MatProgressSpinnerModule
 } from '@angular/material';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
@@ -35,7 +35,7 @@ import { HumanRessourcesComponent } from './human-ressources/human-ressources.co
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/moment';
 import * as moment from 'moment';
-import { TokenInterceptor } from './auth-service/token-interceptor';
+import { TokenInterceptor } from './globalServices/auth-service/token-interceptor';
 import { AddCaseComponent } from './Forms/add-case/add-case.component';
 import { AddContactComponent } from './contacts/add-contact/add-contact.component';
 import { AddTaskComponent } from './tasks/add-task/add-task.component';
@@ -107,7 +107,11 @@ export function momentAdapterFactory() {
     /* POPUP alert */
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: momentAdapterFactory }),
   ],
-  entryComponents: [ContactComponent, TaskComponent, overlayViewComponent, FilterComponent, AddAttachmentComponent, AddTimelineComponent, AddFeesComponent],
+  entryComponents: [
+    ContactComponent, TaskComponent,
+    overlayViewComponent, FilterComponent,
+    AddAttachmentComponent, AddTimelineComponent,
+    AddFeesComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

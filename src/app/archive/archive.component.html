@@ -1,24 +1,26 @@
-<h2 class="title">Requests</h2>
+<h2 class="title">CASES</h2>
 
 <div class="card">
   <mat-icon>description</mat-icon>
   <div class="infos">
-    <span class="title">{{OBJECT_VALUE.uiState.activeWork}}</span>
-    <span class="description">Active work</span>
+    <span class="title">{{OBJECT_VALUE.uiState.stats.totalCases}}</span>
+    <span class="description">Total cases</span>
   </div>
 </div>
+
 <div class="card">
-  <mat-icon>archive</mat-icon>
+  <mat-icon>assignment_late</mat-icon>
   <div class="infos">
-    <span class="title">{{OBJECT_VALUE.uiState.completedWork}}</span>
-    <span class="description">Completed job</span>
+    <span class="title">{{OBJECT_VALUE.uiState.stats.totalActive}}</span>
+    <span class="description">Active cases</span>
   </div>
 </div>
+
 <div class="card">
-  <mat-icon>cancel_presentation</mat-icon>
+  <mat-icon>assignment_turned_in</mat-icon>
   <div class="infos">
-    <span class="title">{{OBJECT_VALUE.uiState.canceledWork}}</span>
-    <span class="description">Canceled jobs</span>
+    <span class="title">{{OBJECT_VALUE.uiState.stats.totalArchived}}</span>
+    <span class="description">Archived cases</span>
   </div>
 </div>
 
@@ -54,55 +56,66 @@
     <mat-icon>add</mat-icon>
   </button>
 
-  <div class="case-card" matRipple *ngFor="let item of OBJECT_VALUE.data" (click)="openCase(item)">
-    <h3 class="title" [attr.data-case-number]="item.number">{{item.name}}</h3>
+  <div class="case-card" matRipple *ngFor="let case of OBJECT_VALUE.data" (click)="openCase(case)">
+    <h3 class="title" [attr.data-case-number]="case.number">{{case.name}}</h3>
 
     <div class="separation"></div>
 
 
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
-        (click)="gotoClient(item.client);$event.stopPropagation();">
-        <mat-icon>security</mat-icon> <span>{{item.opponent}}</span>
+        (click)="gotoClient(case.client);$event.stopPropagation();">
+        <mat-icon>security</mat-icon> <span>{{case.opponent}}</span>
       </button>
     </div>
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
-        (click)="gotoClient(item.client);$event.stopPropagation();">
-        <mat-icon>gavel</mat-icon> <span>{{item.client}}</span>
+        (click)="gotoClient(case.client);$event.stopPropagation();">
+        <mat-icon>gavel</mat-icon> <span>{{case.client}}</span>
       </button>
     </div>
 
     <div class="attribute">
       <mat-icon>location_on</mat-icon>
-      <span>{{item.location}}</span>
+      <span>{{case.location}}</span>
     </div>
 
     <div class="attribute">
       <mat-icon>schedule</mat-icon>
-      <span>{{item.state}}</span>
+      <span>{{case.state}}</span>
     </div>
 
     <div class="attribute">
       <mat-icon>monetization_on</mat-icon>
-      <span>{{item.price}} DA</span>
+      <span>{{case.price}} DA</span>
     </div>
     <div class="attribute">
       <mat-icon>assignment_turned_in</mat-icon>
-      <span>{{item.tasks?item.tasks.length:0}}</span>
+      <span>{{case.tasks?case.tasks.length:0}}</span>
     </div>
 
     <div class="tags">
-      <button mat-button class="type-tag" *ngFor="let tag of item.tags" (click)="$event.stopPropagation()"
+      <button mat-button class="type-tag" *ngFor="let tag of case.tags" (click)="$event.stopPropagation()"
         (mousedown)="$event.stopPropagation()">
         <span>{{tag}}</span>
       </button>
     </div>
 
-    <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
-      <mat-icon>bookmarks</mat-icon>
+    <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()"
+      (click)="bookCase(case);$event.stopPropagation()">
+      <mat-icon [ngStyle]="{'color': case.isSaved?'#3f51b5':'black'}">bookmarks</mat-icon>
     </button>
 
   </div>
 
 </div>
+
+<swal #swalSuccess title="Updated" text="Updated successfully" icon="info" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+<swal #swalError title="Error" text="Something wrong happens, please verify your inputs" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+<swal #swalConfirmation title="Confirmation" text="this action is irreversable , are you sure ?" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>

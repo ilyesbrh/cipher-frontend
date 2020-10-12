@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RestService } from 'src/app/auth-service/REST.service';
+import { RestService } from 'src/app/globalServices/REST.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({

@@ -4,24 +4,24 @@
 <div class="card-1">
   <mat-icon>description</mat-icon>
   <div class="infos">
-    <span class="title">12</span>
-    <span class="description">Active cases</span>
+    <span class="title">{{stats.totalCases}}</span>
+    <span class="description">Total cases</span>
   </div>
 </div>
 
 <div class="card-2">
-  <mat-icon>archive</mat-icon>
+  <mat-icon>assignment_late</mat-icon>
   <div class="infos">
-    <span class="title">90</span>
-    <span class="description">open tasks</span>
+    <span class="title">{{stats.totalActive}}</span>
+    <span class="description">Active cases</span>
   </div>
 </div>
 
 <div class="card-3">
-  <mat-icon>cancel_presentation</mat-icon>
+  <mat-icon>assignment_turned_in</mat-icon>
   <div class="infos">
-    <span class="title">90</span>
-    <span class="description">Canceled jobs</span>
+    <span class="title">{{stats.totalArchived}}</span>
+    <span class="description">Archived cases</span>
   </div>
 </div>
 
@@ -49,15 +49,15 @@
 
 <div class="calender">
   <div [ngSwitch]="view">
-    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+    <mwl-calendar-month-view *ngSwitchCase="calendarView.Month" [viewDate]="viewDate" [events]="events"
       [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
       (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-month-view>
-    <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events"
+    <mwl-calendar-week-view *ngSwitchCase="calendarView.Week" [viewDate]="viewDate" [events]="events"
       [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-week-view>
-    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    <mwl-calendar-day-view *ngSwitchCase="calendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)" (eventTimesChanged)="eventTimesChanged($event)">
     </mwl-calendar-day-view>
   </div>
@@ -66,28 +66,29 @@
 
 
 <div class="card-4">
-  <mat-icon>description</mat-icon>
+  <mat-icon>attach_money</mat-icon>
   <div class="infos">
-    <span class="title">19000.00 £</span>
+    <span class="title">{{stats.totalPrices}}.00 DA</span>
     <span class="description">Total income</span>
   </div>
 </div>
 
 <div class="card-5">
-  <mat-icon>archive</mat-icon>
+  <mat-icon>payments</mat-icon>
   <div class="infos">
-    <span class="title">19000.00 £</span>
-    <span class="description">Total debts</span>
+    <span class="title">{{stats.totalPayed}}.00 DA</span>
+    <span class="description">Total paid</span>
   </div>
 </div>
 
 <div class="card-6">
-  <mat-icon>cancel_presentation</mat-icon>
+  <mat-icon>money_off</mat-icon>
   <div class="infos">
-    <span class="title">90000.00 £</span>
-    <span class="description">Total paid</span>
+    <span class="title">{{stats.totalDetes}}.00 DA</span>
+    <span class="description">Total debts</span>
   </div>
 </div>
+
 
 <div class="chart">
   <canvas id="chartContainer" style="height: 370px; width: 100%;"></canvas>
@@ -96,32 +97,9 @@
 <div class="task-list">
   <h2 class="title">Up coming tasks</h2>
 
-  <div mat-ripple class="task" *ngFor="let item of [1,1,1]">
-    <h3 class="title">task title here</h3>
-    <button mat-icon-button class="delete" (mousedown)="$event.stopPropagation()">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <span class="description">need to be there in time don't be late its too important , and bring things with
-      you</span>
-
-    <mat-divider class="divider"></mat-divider>
-
-    <mat-slide-toggle (mousedown)="$event.stopPropagation()" labelPosition="before" class="alarm">
-      <div class="text">
-        <mat-icon class="icon">alarm</mat-icon><span class="value">22/10/1997 1:50 PM</span>
-      </div>
-    </mat-slide-toggle>
-
-    <mat-divider class="divider"></mat-divider>
-    <div class="case">
-
-      <h3 class="name">Case name here</h3>
-
-      <button mat-mini-fab color="primary" class="client">AB</button>
-      <button mat-mini-fab color="warn">IB</button>
-
-    </div>
-
+  <div mat-ripple class="task" *ngFor="let task of tasks | slice : 0 : 10" (click)="openTask(task)">
+    <h3 class="title">{{task.title}}</h3>
+    <span class="description">{{task.description}}</span>
   </div>
 </div>
 
@@ -129,11 +107,12 @@
 
   <h2 class="title">Booked cases</h2>
 
-  <div class="case-card" matRipple *ngFor="let item of [1,2,3,4,5]" (click)="openCase()">
-    <h2 class="title" [attr.data-case-number]="'12345'">Case name</h2>
+  <div class="case-card" matRipple *ngFor="let case of cases" [routerLink]="['/home/archive/'+case.id]">
+    <h2 class="title" [attr.data-case-number]="case.number">{{case.name}}</h2>
 
-    <button mat-button class="client" (mousedown)="$event.stopPropagation()" (click)="gotoclient()">
-      <mat-icon>face</mat-icon> <span>Issam benmahbous</span>
+    <button mat-button class="client" (mousedown)="$event.stopPropagation()"
+      (click)="gotoClient(case);$event.stopPropagation()">
+      <mat-icon>face</mat-icon> <span>{{case.client}}</span>
     </button>
 
 

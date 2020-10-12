@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { RestService } from 'src/app/auth-service/REST.service';
+import { RestService } from 'src/app/globalServices/REST.service';
 
 @Component({
   selector: 'app-add-case',

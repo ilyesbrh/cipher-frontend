@@ -3,7 +3,7 @@ import { AddAttachmentComponent } from './add-attachment/add-attachment.componen
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
 import { MatDialog } from '@angular/material';
 import { TaskComponent } from '../tasks/task/task.component';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';

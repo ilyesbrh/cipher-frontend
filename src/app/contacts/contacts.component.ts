@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { RestService } from '../auth-service/REST.service';
+import { RestService } from '../globalServices/REST.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
@@ -49,7 +49,7 @@ export class ContactsComponent implements OnInit {
 
   async openContact(user) {
 
-    let result = await this.dialog.open(ContactComponent, { data: user, panelClass: 'test' }).afterClosed().toPromise();
+    let result = await this.dialog.open(ContactComponent, { data: user, panelClass: 'user-dialog' }).afterClosed().toPromise();
 
     if (result) {
       this.success.fire();

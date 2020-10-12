@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RestService } from 'src/app/auth-service/REST.service';
+import { RestService } from 'src/app/globalServices/REST.service';
 
 @Component({
   templateUrl: './add-attachment.component.html',

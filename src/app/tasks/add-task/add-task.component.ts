@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Route, Router, ActivatedRoute } from '@angular/router';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
-import { RestService } from 'src/app/auth-service/REST.service';
+import { RestService } from 'src/app/globalServices/REST.service';
 
 @Component({
   selector: 'app-add-task',
@@ -37,7 +37,7 @@ export class AddTaskComponent implements OnInit {
 
     this.taskForm.controls.casesId.setValue(id);
 
-    this.casesList = (await this.http.getCasesList(0, 0, []).toPromise()) as any[];
+    this.casesList = (await this.http.getCasesList({}).toPromise()) as any[];
 
   }
 
