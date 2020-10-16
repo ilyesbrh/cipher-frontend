@@ -1,3 +1,4 @@
+import { ViewAttachmentComponent } from './view-attachment/view-attachment.component';
 import { AddFeesComponent } from './add-fees/add-fees.component';
 import { AddAttachmentComponent } from './add-attachment/add-attachment.component';
 import { ActivatedRoute } from '@angular/router';
@@ -37,8 +38,13 @@ export class CaseViewComponent implements OnInit {
   }
 
   async openTask(task) {
-    this.dialog.open(TaskComponent, { data: task });
+    this.dialog.open(TaskComponent, { data: task, panelClass: 'overflow' });
   }
+
+  async openAttachment(attachment) {
+    this.dialog.open(ViewAttachmentComponent, { data: { attachment, caseId: this.case.id }, panelClass: 'overflow' });
+  }
+
   async markAsDone(task) {
     task.isDone = true;
 

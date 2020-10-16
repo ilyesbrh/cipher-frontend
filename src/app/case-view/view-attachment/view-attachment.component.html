@@ -1,0 +1,41 @@
+<swal #swalSuccess title="Task Updated" text="Your task updated successfully" icon="info" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+
+<swal #swalDelete title="Task Deleted" text="Your task deleted successfully" icon="info" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+
+<div class="background"></div>
+<swal #swalError title="Error" text="Something wrong happens, please verify your inputs" icon="error"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+
+<mat-form-field appearance="fill" style="width: 100%;">
+  <mat-label>File name</mat-label>
+
+  <input matInput placeholder="Title" [value]="attachment.name">
+
+</mat-form-field>
+
+<mat-form-field appearance="fill" style="width: 100%;">
+  <mat-label>Created at</mat-label>
+
+  <input matInput placeholder="created at" [value]="this.attachment.createdAt | date">
+</mat-form-field>
+
+<mat-divider style="margin-bottom: 20px;"></mat-divider>
+
+<mat-form-field class="description" appearance="fill" style="width: 100%;">
+  <mat-label>Description</mat-label>
+  <textarea matInput rows="6" placeholder="some description" [value]="this.attachment.description"></textarea>
+</mat-form-field>
+
+<div class="actions">
+
+  <button mat-icon-button color="warn" (click)="delete()">
+    <mat-icon>delete</mat-icon>
+  </button>
+
+  <button mat-raised-button color="primary" (click)="open()">Download</button>
+</div>

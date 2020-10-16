@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 const ROOT = environment.API_URL;
 const USERS_LINK = `${ROOT}users/`;
@@ -140,6 +141,17 @@ export class RestService {
     const where = { id: attachmentId };
 
     return this.http.delete(CASES_LINK + '/' + caseId + '/attachments/', { params: { where: JSON.stringify(where) } }).toPromise();
+  }
+
+  download(url): Observable<any> {
+
+    return this.http.get(ROOT + 'files/' + url, {
+      headers: {
+        accept: 'application/octet-stream',
+        'content-type': 'application/octet-stream',
+      },
+      responseType: 'blob'
+    });
   }
 
 

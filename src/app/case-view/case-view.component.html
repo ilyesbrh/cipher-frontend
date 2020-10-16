@@ -110,9 +110,10 @@
     <h2 class="title"> Attachments</h2>
     <button mat-raised-button color="primary" class="addBtn" (click)="addAttachment()">Add file</button>
     <mat-list class="list" role="list">
-      <mat-list-item matRipple class="item" role="listitem" *ngFor="let item of case.attachments">
-        <span class="name">{{item.name}}</span>
-        <button mat-icon-button align="end" (click)="deleteAttachment(item);$event.stopPropagation();"
+      <mat-list-item matRipple class="item" role="listitem" *ngFor="let attachment of case.attachments"
+        (click)="openAttachment(attachment)">
+        <span class="name">{{attachment.name}}</span>
+        <button mat-icon-button align="end" (click)="deleteAttachment(attachment);$event.stopPropagation();"
           (mousedown)="$event.stopPropagation();">
           <mat-icon>delete</mat-icon>
         </button></mat-list-item>
