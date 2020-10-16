@@ -182,7 +182,7 @@
         <div class="attachment" *ngFor="let att of attachments; let i=index">
           <h2 class="title">{{att.name}}</h2>
           <p class="description">{{att.description | slice:1:50}}...</p>
-          <button mat-icon-button class="delete" color="warn" (click)="delAttachment(i)">
+          <button mat-icon-button class="delete" color="warn" (click)="delAttachment()">
             <mat-icon>delete</mat-icon>
           </button>
         </div>

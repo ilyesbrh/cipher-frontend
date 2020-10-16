@@ -64,13 +64,13 @@
 
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
-        (click)="gotoClient(case.client);$event.stopPropagation();">
+        (click)="gotoClient();$event.stopPropagation();">
         <mat-icon>security</mat-icon> <span>{{case.opponent}}</span>
       </button>
     </div>
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
-        (click)="gotoClient(case.client);$event.stopPropagation();">
+        (click)="gotoClient();$event.stopPropagation();">
         <mat-icon>gavel</mat-icon> <span>{{case.client}}</span>
       </button>
     </div>
