@@ -1,7 +1,7 @@
 import { AddTaskComponent } from './tasks/add-task/add-task.component';
 import { AddContactComponent } from './contacts/add-contact/add-contact.component';
 import { AddCaseComponent } from './Forms/add-case/add-case.component';
-import { HumanRessourcesComponent } from './human-ressources/human-ressources.component';
+import { HumanResourcesComponent } from './human-resources/human-resources.component';
 import { CaseViewComponent } from './case-view/case-view.component';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
@@ -24,7 +24,7 @@ const routes: Routes = [
       { path: 'contacts', component: ContactsComponent },
       { path: 'contacts/add', component: AddContactComponent },
       { path: 'archive', component: ArchiveComponent },
-      { path: 'HR', component: HumanRessourcesComponent },
+      { path: 'HR', component: HumanResourcesComponent },
       { path: 'archive/add', component: AddCaseComponent },
       { path: 'archive/:id', component: CaseViewComponent },
     ]

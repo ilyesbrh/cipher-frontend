@@ -6,11 +6,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TaskComponent } from '../tasks/task/task.component';
 
 @Component({
-  selector: 'app-human-ressources',
-  templateUrl: './human-ressources.component.html',
-  styleUrls: ['./human-ressources.component.scss']
+  selector: 'app-human-resources',
+  templateUrl: './human-resources.component.html',
+  styleUrls: ['./human-resources.component.scss']
 })
-export class HumanRessourcesComponent implements OnInit {
+export class HumanResourcesComponent implements OnInit {
 
   search = new FormControl('');
 
