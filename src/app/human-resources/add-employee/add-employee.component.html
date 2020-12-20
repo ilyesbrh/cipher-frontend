@@ -1,0 +1,50 @@
+<div class="background"></div>
+<swal #swalError title="Invalid input" text="Please verify your inputs" icon="error" [showCancelButton]="true"
+  [focusCancel]="true">
+</swal>
+<div class="background"></div>
+<swal #swalSuccess title="Contact Created" text="Your contact created successfully" icon="info"
+  [showCancelButton]="true" [focusCancel]="true">
+</swal>
+
+<div class="content">
+  <h2>Add new USER</h2>
+
+  <form [formGroup]="employeeForm">
+    <ng-template matStepLabel>Task</ng-template>
+    <p class="description">
+      please add task information below
+    </p>
+
+
+    <h4>Info</h4>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>full name</mat-label>
+      <input matInput placeholder="" formControlName="fullName">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="" formControlName="email">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Phone</mat-label>
+      <input matInput placeholder="" formControlName="phone">
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" placeholder="####" formControlName="password">
+    </mat-form-field>
+
+    <h4>Roles</h4>
+    <mat-slide-toggle labelPosition="before" class="toggle" *ngFor="let role of uiService.ROLES; let i=index"
+      [ngModel]="isActive(role,employeeForm.value)" (change)="changeRoles(role,employeeForm.value,$event)"
+      [ngModelOptions]="{standalone: true}">
+      {{uiService.ROLES[i].en}}
+    </mat-slide-toggle>
+
+    <!-- create Task -->
+    <div class="actions">
+      <button class="done" mat-raised-button color="primary" (click)="createEmployee()">Create</button>
+    </div>
+  </form>
+</div>

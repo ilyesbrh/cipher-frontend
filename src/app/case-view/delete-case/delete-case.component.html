@@ -1,0 +1,14 @@
+<ng-container>
+  <h2>Delete Case</h2>
+  <p style="color: red;">This action is irreversible be aware that all information ll be lost forever !</p>
+
+  <mat-slide-toggle labelPosition="before" class="toggle" [(ngModel)]="info">All case info</mat-slide-toggle>
+  <mat-slide-toggle labelPosition="before" class="toggle" [(ngModel)]="tasks">Tasks</mat-slide-toggle>
+  <mat-slide-toggle labelPosition="before" class="toggle" [(ngModel)]="fees">Fees</mat-slide-toggle>
+  <mat-slide-toggle labelPosition="before" class="toggle" [(ngModel)]="attachments">Attachments</mat-slide-toggle>
+  <mat-slide-toggle labelPosition="before" class="toggle" [(ngModel)]="timeline">Timeline</mat-slide-toggle>
+
+  <button mat-raised-button style="width: 95%;" color="warn" (click)="deleteCase()"
+    [disabled]="!(info && tasks && fees && attachments && timeline)">Delete <span
+      style="color: red;">{{c.name}}</span></button>
+</ng-container>

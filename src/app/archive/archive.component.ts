@@ -4,6 +4,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RestService } from '../globalServices/REST.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { UiStateManagerService } from '../globalServices/ui-state-manager.service';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-archive',
@@ -16,14 +18,24 @@ export class ArchiveComponent implements OnInit {
   @ViewChild('swalError', { static: true }) private error: SwalComponent;
   @ViewChild('swalConfirmation', { static: true }) private confirm: SwalComponent;
 
-  nameFilter = new FormControl('');
-  regionFilter = new FormControl('');
-  phoneFilter = new FormControl('');
   filter = new FormGroup({
-    name: this.nameFilter,
-    region: this.regionFilter,
-    phone: this.phoneFilter
+    name: new FormControl(''),
+    number: new FormControl(''),
+    opponent: new FormControl(),
+    client: new FormControl(),
+    minPrice: new FormControl(),
+    maxPrice: new FormControl(),
+    Jugement: new FormControl(''),
+    startJugementDate: new FormControl(''),
+    endJugementDate: new FormControl(''),
+    description: new FormControl(''),
+    state: new FormControl(),
+    tags: new FormControl(),
   });
+
+
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tags: Array<any> = [];
 
   OBJECT_VALUE = {
     data: null,
@@ -44,7 +56,6 @@ export class ArchiveComponent implements OnInit {
     }
 
   };
-
 
   constructor(
     public api: RestService, public router: Router, public uiService: UiStateManagerService,
@@ -85,7 +96,7 @@ export class ArchiveComponent implements OnInit {
   }
 
   async bookCase(c) {
-    c.isSaved = true;
+    c.isSaved = !c.isSaved;
 
     try {
       await this.http.updateCase({ isSaved: c.isSaved, id: c.id });
@@ -94,6 +105,39 @@ export class ArchiveComponent implements OnInit {
     } catch (error) {
 
       this.error.fire();
+    }
+  }
+
+  applyFilter() {
+
+    console.log(this.filter.value);
+
+    let where = {};
+
+
+  }
+
+  /* tags input */
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.tags.push({ name: value.trim() });
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeTag(tag): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
     }
   }
 }

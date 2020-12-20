@@ -7,33 +7,48 @@
   <button mat-icon-button>
     <mat-icon>settings</mat-icon>
   </button>
-  <button mat-mini-fab color="primary" class="add" (click)="createTask()">
+  <button mat-mini-fab color="primary" class="add" (click)="createUser()">
     <mat-icon>add</mat-icon>
   </button>
 </div>
 <div class="users-list">
-  <div mat-ripple class="user" *ngFor="let item of [1,1,1,1,1,1]" (click)="openUser()">
-    <h3 class="title">Issam benmahbous testing</h3>
+  <div mat-ripple class="user" *ngFor="let user of users" (click)="openUser(user);">
+    <h3 class="title">{{user.fullName}}</h3>
 
-    <div class="content" [ngClass]="{'expand': expand}" (mousedown)="$event.stopPropagation()">
+    <div class="content" [ngClass]="{'expand': user?.expand}" (mousedown)="$event.stopPropagation();">
 
-      <div class="infos">
-        <h4>Info</h4>
-        <mat-form-field appearance="fill" *ngFor="let item of [1,1,1,1,1,1,1]" class="input">
-          <mat-label>name</mat-label>
-          <input matInput placeholder="label" value="testint test">
-        </mat-form-field>
-      </div>
-      <div class="roles">
+      <div class="roles" (mousedown)="$event.stopPropagation();" (click)="$event.stopPropagation();">
         <h4>Roles</h4>
-        <mat-slide-toggle *ngFor="let item of [1,1,1,1,1,1]" labelPosition="before" class="toggle">role 1
+        <mat-slide-toggle labelPosition="before" class="toggle" *ngFor="let role of uiService.ROLES; let i=index"
+          [ngModel]="isActive(role,user)" (change)="changeRoles(role,user,$event)">
+          {{uiService.ROLES[i].en}}
         </mat-slide-toggle>
+      </div>
+
+      <div class="infos" (mousedown)="$event.stopPropagation();" (click)="$event.stopPropagation();">
+        <h4>Info</h4>
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>full name</mat-label>
+          <input matInput placeholder="" [(ngModel)]="user.fullName">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="" [(ngModel)]="user.email" disabled>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Phone</mat-label>
+          <input matInput placeholder="" [(ngModel)]="user.phone">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="input">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" placeholder="####" [(ngModel)]="user.password">
+          <mat-hint>you can only change password</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="accent" class="save" (click)="saveInfo(user)">Save</button>
       </div>
 
     </div>
 
-    <button mat-raised-button class="save" [ngClass]="{'expand': expand}"
-      (mousedown)="$event.stopPropagation()">save</button>
     <button mat-button class="actions" (mousedown)="$event.stopPropagation()">
       <span class="label">actions</span>
       <span class="value">160</span>

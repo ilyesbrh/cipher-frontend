@@ -1,9 +1,9 @@
+import { UiStateManagerService } from './../globalServices/ui-state-manager.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { RestService } from '../globalServices/REST.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TaskComponent } from '../tasks/task/task.component';
 
 @Component({
   selector: 'app-human-resources',
@@ -12,23 +12,52 @@ import { TaskComponent } from '../tasks/task/task.component';
 })
 export class HumanResourcesComponent implements OnInit {
 
+  constructor(
+    public dialog: MatDialog, public api: RestService,
+    public router: Router, public activeRoute: ActivatedRoute,
+    public uiService: UiStateManagerService
+  ) { }
+
   search = new FormControl('');
+  users: any;
 
-  constructor(public dialog: MatDialog, public api: RestService, public router: Router, public activeRoute: ActivatedRoute) { }
+  async ngOnInit() {
+    this.users = await this.api.getUsers(JSON.stringify({}));
 
-  ngOnInit() {
+    console.log(this.users);
+
   }
 
-  createTask() {
+  openUser(user) {
+    user.expand = !user.expand;
+  }
+
+  createUser() {
+    this.router.navigate(['add'], { relativeTo: this.activeRoute });
+  }
+
+  saveInfo(user) {
+
+    console.log(user);
 
   }
 
-  expand = true;
+  changeRoles(role, user, event) {
 
-  openUser() {
-    this.expand = !this.expand;
+    // remove selected rome
+    const roles = user.role.split(',').filter(v => v !== role.value);
 
-    return false;
+    // if current state is checked then add it
+    if (event.checked) {
+      roles.push(role.value);
+    }
+
+    user.role = roles.toString();
+  }
+
+  isActive(role, user) {
+    return user.role.includes(role.value);
   }
 
 }
+

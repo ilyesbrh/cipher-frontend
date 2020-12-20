@@ -39,6 +39,16 @@ export class RestService {
     return this.http.get(USER_LINK).toPromise();
   }
 
+  // USERS
+  getUsers(filter): Promise<any> {
+
+    return this.http.get(ROOT + 'users', filter).toPromise();
+  }
+
+  createUser(values: any): any {
+    return this.http.post(USERS_LINK + 'sign-up', values);
+  }
+
   // CASES
   getCasesList(filter) {
     console.log('[GET CASES QUERY]');
@@ -78,6 +88,16 @@ export class RestService {
     const where: any = { id: data.id };
 
     return this.http.patch(CASES_LINK + '/' + data.id, data).toPromise();
+  }
+
+  async deleteCase(caseId: any) {
+
+    await this.http.delete(CASES_LINK + '/' + caseId + '/timelines', {}).toPromise();
+    await this.http.delete(CASES_LINK + '/' + caseId + '/attachments', {}).toPromise();
+    await this.http.delete(CASES_LINK + '/' + caseId + '/fees', {}).toPromise();
+    await this.http.delete(CASES_LINK + '/' + caseId + '/tasks', {}).toPromise();
+
+    return this.http.delete(CASES_LINK + '/' + caseId).toPromise();
   }
 
   /* FEES */
@@ -158,6 +178,13 @@ export class RestService {
   /* TIMELINE */
   createTimeline(id, value) {
     return this.http.post(CASES_LINK + '/' + id + '/timelines', value).toPromise();
+  }
+
+  deleteTimeline(TimelineId, caseId) {
+    const where = { id: TimelineId };
+
+    return this.http.delete(CASES_LINK + '/' + caseId + '/attachments/', { params: { where: JSON.stringify(where) } }).toPromise();
+
   }
 
   /* TASKS */

@@ -240,6 +240,25 @@ $accent: mat-color($app-accent);
 
   background-color: white;
 
+  .start-interval {
+    position: relative;
+    &:after {
+      content: "";
+      position: absolute;
+      right: 50%;
+      bottom: -0px;
+
+      width: 1px;
+      height: 20px;
+
+      background-color: grey;
+    }
+  }
+  mat-divider {
+    width: 100%;
+    margin-top: 26px;
+    margin-bottom: 26px;
+  }
   .driver-type {
     margin-bottom: 24px;
 

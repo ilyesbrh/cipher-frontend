@@ -44,6 +44,8 @@ import { AddAttachmentComponent } from './case-view/add-attachment/add-attachmen
 import { AddTimelineComponent } from './case-view/add-timeline/add-timeline.component';
 import { AddFeesComponent } from './case-view/add-fees/add-fees.component';
 import { ViewAttachmentComponent } from './case-view/view-attachment/view-attachment.component';
+import { AddEmployeeComponent } from './human-resources/add-employee/add-employee.component';
+import { DeleteCaseComponent } from './case-view/delete-case/delete-case.component';
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
@@ -71,7 +73,9 @@ export function momentAdapterFactory() {
     AddAttachmentComponent,
     AddTimelineComponent,
     AddFeesComponent,
-    ViewAttachmentComponent
+    ViewAttachmentComponent,
+    AddEmployeeComponent,
+    DeleteCaseComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,8 @@ export function momentAdapterFactory() {
     overlayViewComponent, FilterComponent,
     AddAttachmentComponent, AddTimelineComponent,
     AddFeesComponent,
-    ViewAttachmentComponent],
+    ViewAttachmentComponent,
+    DeleteCaseComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

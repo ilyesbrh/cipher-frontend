@@ -23,7 +23,7 @@ $accent: mat-color($app-accent, 900);
   grid-row: 2 / end;
 
   width: calc(100% - 32px);
-  height: calc(100% - 12px);
+  height: calc(100% - 32px);
 
   padding: 16px;
 
@@ -69,18 +69,15 @@ $accent: mat-color($app-accent, 900);
     align-items: flex-start;
     justify-content: flex-start;
 
-    > .description {
-      font-weight: bolder;
-      margin-bottom: 32px;
-    }
-
     .toggle {
       width: 100%;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
+
     ::ng-deep .mat-slide-toggle-bar {
       margin-left: auto;
     }
+
     mat-form-field {
       width: 100%;
       margin-bottom: 8px;
@@ -95,6 +92,7 @@ $accent: mat-color($app-accent, 900);
       justify-content: space-between;
       width: 100%;
 
+      margin-top: 32px;
       .done {
         width: 120px;
       }

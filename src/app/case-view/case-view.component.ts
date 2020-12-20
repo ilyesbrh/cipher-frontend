@@ -1,7 +1,8 @@
+import { DeleteCaseComponent } from './delete-case/delete-case.component';
 import { ViewAttachmentComponent } from './view-attachment/view-attachment.component';
 import { AddFeesComponent } from './add-fees/add-fees.component';
 import { AddAttachmentComponent } from './add-attachment/add-attachment.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ViewportScroller } from '@angular/common';
 import { RestService } from '../globalServices/REST.service';
@@ -23,7 +24,7 @@ export class CaseViewComponent implements OnInit {
 
   case: any;
   constructor(
-    private route: ActivatedRoute, public dialog: MatDialog,
+    private route: ActivatedRoute, public dialog: MatDialog, public router: Router,
     private viewportScroller: ViewportScroller, public api: RestService) { }
   async ngOnInit() {
     this.case = await this.api.getCase(this.route.snapshot.params.id);
@@ -46,6 +47,11 @@ export class CaseViewComponent implements OnInit {
   }
 
   async markAsDone(task) {
+
+    const question = await this.confirm.fire();
+
+    if (!question.isConfirmed) { return; }
+
     task.isDone = true;
 
     try {
@@ -99,12 +105,71 @@ export class CaseViewComponent implements OnInit {
   }
 
   async addTransaction() {
+
+    const question = await this.confirm.fire();
+
+    if (!question.isConfirmed) { return; }
+
     this.dialog.open(AddFeesComponent, { data: this.case.id }).afterClosed().subscribe(async v => {
 
       if (v) {
         await this.success.fire();
 
         this.case = await this.api.getCase(this.route.snapshot.params.id);
+      } else {
+        this.error.fire();
+      }
+    });
+
+  }
+
+  async bookCase() {
+    const question = await this.confirm.fire();
+
+    if (!question.isConfirmed) { return; }
+
+    this.case.isSaved = !this.case.isSaved;
+
+    try {
+      await this.api.updateCase({ isSaved: this.case.isSaved, id: this.case.id });
+
+      await this.success.fire();
+    } catch (error) {
+
+      this.error.fire();
+    }
+  }
+
+  async doneCase() {
+    const question = await this.confirm.fire();
+
+    if (!question.isConfirmed) { return; }
+
+    this.case.state = this.case.state === 'active' ? 'done' : 'active';
+
+    try {
+      await this.api.updateCase({ isSaved: this.case.isSaved, id: this.case.id });
+
+      await this.success.fire();
+    } catch (error) {
+
+      this.error.fire();
+    }
+  }
+
+  async deleteCase() {
+
+    const question = await this.confirm.fire();
+
+    if (!question.isConfirmed) { return; }
+
+    this.dialog.open(DeleteCaseComponent, { data: this.case.id }).afterClosed().subscribe(async v => {
+
+      if (v) {
+        await this.success.fire();
+
+        this.router.navigate(['/home/archive']);
+
       } else {
         this.error.fire();
       }

@@ -1,3 +1,4 @@
+import { AddEmployeeComponent } from './human-resources/add-employee/add-employee.component';
 import { AddTaskComponent } from './tasks/add-task/add-task.component';
 import { AddContactComponent } from './contacts/add-contact/add-contact.component';
 import { AddCaseComponent } from './Forms/add-case/add-case.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'contacts/add', component: AddContactComponent },
       { path: 'archive', component: ArchiveComponent },
       { path: 'HR', component: HumanResourcesComponent },
+      { path: 'HR/add', component: AddEmployeeComponent },
       { path: 'archive/add', component: AddCaseComponent },
       { path: 'archive/:id', component: CaseViewComponent },
     ]

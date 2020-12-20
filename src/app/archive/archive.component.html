@@ -28,25 +28,102 @@
   <h3>Search</h3>
 
   <mat-form-field appearance="outline">
-    <mat-label>name</mat-label>
-    <input matInput type="text" placeholder="taxi name..." formControlName="name">
-    <mat-icon matSuffix>account_box</mat-icon>
-    <mat-hint style="display: none;">Hint</mat-hint>
+    <mat-label>Case name</mat-label>
+    <input matInput formControlName="name">
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>region</mat-label>
-    <input matInput type="text" placeholder="taxi region..." formControlName="region">
-    <mat-icon matSuffix>explore</mat-icon>
-    <mat-hint style="display: none;">Hint</mat-hint>
+    <mat-label>Case number</mat-label>
+    <input matInput formControlName="number">
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>phone number</mat-label>
-    <input matInput type="text" placeholder="taxi phone number..." formControlName="phone">
-    <mat-icon matSuffix>contacts</mat-icon>
-    <mat-hint style="display: none;">Hint</mat-hint>
+    <mat-label>Case state</mat-label>
+    <mat-select formControlName="state">
+      <mat-option *ngFor="let state of ['Active','Done']" [value]="state">{{state}}</mat-option>
+    </mat-select>
   </mat-form-field>
+
+  <h4>Contacts</h4>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Opponent full name</mat-label>
+    <input matInput formControlName="opponent">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Client full name</mat-label>
+    <input matInput formControlName="client">
+
+  </mat-form-field>
+
+  <h4>Case price</h4>
+
+  <mat-form-field appearance="outline" class="start-interval">
+    <mat-label>MIN</mat-label>
+    <input matInput placeholder="Minimum price" formControlName="minPrice">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>MAX</mat-label>
+    <input matInput placeholder="Maximum price" formControlName="maxPrice">
+
+  </mat-form-field>
+
+  <h4>Judgement</h4>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Final judgement</mat-label>
+    <input matInput placeholder="Maximum price" formControlName="Jugement">
+
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" class="start-interval">
+    <mat-label>Start date</mat-label>
+
+    <input matInput [ngxMatDatetimePicker]="picker" placeholder="Start date" formControlName="startJugementDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+    <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>End date</mat-label>
+
+    <input matInput [ngxMatDatetimePicker]="picker2" placeholder="End date" formControlName="endJugementDate">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+    <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [touchUi]="true" [hideTime]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <h4>More info</h4>
+
+  <!-- Case tags -->
+  <mat-form-field appearance="outline">
+    <mat-label>Tags</mat-label>
+    <mat-chip-list #chipList aria-label="tags selection">
+      <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
+        {{tag.name}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="case type..." [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+        (matChipInputTokenEnd)="add($event)" formControlName="tags">
+    </mat-chip-list>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>case Description</mat-label>
+    <textarea matInput placeholder="description info" formControlName="description"></textarea>
+
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" style="width: 100%;" (click)="applyFilter()">Search</button>
 
 </div>
 
@@ -61,17 +138,16 @@
 
     <div class="separation"></div>
 
-
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
         (click)="gotoClient();$event.stopPropagation();">
-        <mat-icon>security</mat-icon> <span>{{case.opponent}}</span>
+        <mat-icon>security</mat-icon> <span>{{case.client}}</span>
       </button>
     </div>
     <div class="attribute">
       <button mat-button class="client" (mousedown)="$event.stopPropagation()"
         (click)="gotoClient();$event.stopPropagation();">
-        <mat-icon>gavel</mat-icon> <span>{{case.client}}</span>
+        <mat-icon>gavel</mat-icon> <span>{{case.opponent}}</span>
       </button>
     </div>
 

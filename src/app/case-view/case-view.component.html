@@ -11,24 +11,26 @@
       <mat-icon>face</mat-icon> <span>{{case.client}}</span>
     </button>
     <div class="actions">
-      <button mat-mini-fab class="action booked" [ngStyle]="{'color': case.isSaved?'#3f51b5':'black'}">
+      <button mat-mini-fab class="action booked" [ngStyle]="{'color': case.isSaved?'#3f51b5':'black'}"
+        (click)="bookCase()">
         <mat-icon>bookmark</mat-icon>
       </button>
       <button mat-mini-fab class="action edit">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab class="action delete">
+      <button mat-mini-fab class="action delete" (click)="deleteCase()">
         <mat-icon>delete</mat-icon>
       </button>
-      <button mat-fab color="primary" class="action">
-        <mat-icon>done</mat-icon>
+      <button mat-fab color="primary" class="action" (click)="doneCase()"
+        [ngStyle]="{'background-color': case.state==='active'?'':'grey'}">
+        <mat-icon>{{case.state==='active'?'done':'close'}}</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="case-infos">
 
-    <div class="state" [ngStyle]="{'background-color': case.state==='Active'?'green':'red'}"></div>
+    <div class="state" [ngStyle]="{'background-color': case.state==='active'?'green':'red'}"></div>
 
     <h2>Infos</h2>
     <mat-form-field appearance="outline">

@@ -103,16 +103,13 @@ $accent: mat-color($app-accent);
       right: 0px;
       top: 4px;
     }
-    .save {
-      position: absolute;
-      right: 8px;
-      bottom: 8px;
 
-      display: none;
-      &.expand {
-        display: unset;
-      }
+    .save {
+      width: 100%;
+
+      margin-top: 24px;
     }
+
     .actions {
       position: absolute;
 
@@ -172,6 +169,8 @@ $accent: mat-color($app-accent);
       .toggle {
         position: relative;
 
+        min-width: 300px;
+
         margin-bottom: 32px;
         &:after {
           content: "";
@@ -189,7 +188,7 @@ $accent: mat-color($app-accent);
         }
 
         ::ng-deep .mat-slide-toggle-bar {
-          margin-left: 150px;
+          margin-left: auto;
         }
       }
     }
