@@ -11,9 +11,9 @@
 <h4>Deadline</h4>
 
 <mat-form-field appearance="outline" class="start-date">
-  <mat-label>Start</mat-label>
+  <mat-label>From</mat-label>
 
-  <input matInput [ngxMatDatetimePicker]="picker" placeholder="Start date" [formControl]="data.controls.startDate">
+  <input matInput [ngxMatDatetimePicker]="picker" placeholder="From date" [formControl]="data.controls.startDate">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 
   <ngx-mat-datetime-picker #picker [showSpinners]="true" [touchUi]="true" [hideTime]="false">
@@ -21,9 +21,9 @@
 </mat-form-field>
 
 <mat-form-field appearance="outline">
-  <mat-label>End</mat-label>
+  <mat-label>To</mat-label>
 
-  <input matInput [ngxMatDatetimePicker]="picker2" placeholder="End date" [formControl]="data.controls.endDate">
+  <input matInput [ngxMatDatetimePicker]="picker2" placeholder="To date" [formControl]="data.controls.endDate">
   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 
   <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [touchUi]="true" [hideTime]="false">

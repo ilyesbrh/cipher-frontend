@@ -26,6 +26,13 @@ export class HumanResourcesComponent implements OnInit {
 
     console.log(this.users);
 
+    this.search.valueChanges.subscribe(async v => {
+
+      this.users = await this.api.getUsers(JSON.stringify({ where: { fullName: { like: `%${v}%` } } }));
+
+      debugger;
+    });
+
   }
 
   openUser(user) {

@@ -6,6 +6,7 @@ import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { UiStateManagerService } from '../globalServices/ui-state-manager.service';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material';
+import { debounceTime, mapTo } from 'rxjs/operators';
 
 @Component({
   selector: 'app-archive',
@@ -31,6 +32,7 @@ export class ArchiveComponent implements OnInit {
     description: new FormControl(''),
     state: new FormControl(),
     tags: new FormControl(),
+    sortBy: new FormControl('name'),
   });
 
 
@@ -85,10 +87,84 @@ export class ArchiveComponent implements OnInit {
     });
 
     console.log(this.OBJECT_VALUE.data);
+
+    this.filter.valueChanges.pipe(debounceTime(1000)).subscribe(async (v) => {
+
+      this.OBJECT_VALUE.uiState.start = 0;
+      this.OBJECT_VALUE.uiState.end = 10;
+
+      // NOTE: change to object type instead of string
+      const Tempfilter = this.filterFactory(v);
+
+      this.OBJECT_VALUE.data = await this.api.getCasesList(Tempfilter).toPromise();
+
+      this.OBJECT_VALUE.data = this.OBJECT_VALUE.data.map(v => {
+        v.tags = v.tags.split(',');
+        return v;
+      });
+
+      console.log(this.OBJECT_VALUE.data);
+
+    });
+  }
+
+  addToFilter(name, value, where) {
+
+    switch (typeof value) {
+      case 'string':
+        return value === '' ? where : { ...where, [name]: { like: '%' + value + '%' } };
+      case 'number':
+        return { ...where, [name]: value };
+      default:
+        return where;
+    }
+  }
+
+  filterFactory(v) {
+
+    let where = {};
+
+    where = this.addToFilter('number', v.number, where);
+    where = this.addToFilter('name', v.name, where);
+    where = this.addToFilter('client', v.client, where);
+    where = this.addToFilter('opponent', v.opponent, where);
+    where = this.addToFilter('Jugement', v.Jugement, where);
+    where = this.addToFilter('description', v.description, where);
+    where = this.addToFilter('state', v.state, where);
+    where = { ...where, price: { between: [(v.minPrice || 0), (v.maxPrice || 999999999)] } };
+
+
+    let tags = this.tags.length > 0 ? this.tags.map(v => v.name).join('|') : '';
+    let regexp = new RegExp(`(${tags})`, 'g');
+
+    where = tags !== '' ? { ...where, tags: { regexp } } : where;
+
+    let JugementDate = null;
+
+
+    try {
+      let start = v.startJugementDate.toDate().getTime();
+      let end = v.endJugementDate.toDate().getTime();
+      JugementDate = { between: [start, end] };
+    } catch (error) { }
+
+
+    // if deadline is null then don't add deadline
+    where = JugementDate ? { ...where, JugementDate } : where;
+
+    // sort items by title or deadline
+    const order = v.sortBy + ' ASC';
+
+    let filter = { offset: 0, limit: 10, include: [{ relation: 'tasks' }], where, order };
+
+    console.log(JSON.stringify(filter));
+
+    return filter;
+
+
   }
 
   gotoClient() {
-
   }
 
   openCase(c) {
@@ -108,14 +184,6 @@ export class ArchiveComponent implements OnInit {
     }
   }
 
-  applyFilter() {
-
-    console.log(this.filter.value);
-
-    let where = {};
-
-
-  }
 
   /* tags input */
   add(event: MatChipInputEvent): void {

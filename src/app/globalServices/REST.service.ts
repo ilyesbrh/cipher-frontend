@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, JsonpClientBackend } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -42,7 +42,7 @@ export class RestService {
   // USERS
   getUsers(filter): Promise<any> {
 
-    return this.http.get(ROOT + 'users', filter).toPromise();
+    return this.http.get(ROOT + 'users', { params: { filter } }).toPromise();
   }
 
   createUser(values: any): any {
@@ -119,26 +119,9 @@ export class RestService {
   }
 
   /* CONTACTS */
-  getAllContacts(): any {
+  getAllContacts(filter): any {
 
-    const filter = new HttpParams();
-    filter.append('filter', `
-    {
-      "fields": {
-        "id": false,
-        "fullName": true,
-        "father": false,
-        "mother": false,
-        "phone": false,
-        "birthday": false,
-        "address": false,
-        "email": false,
-        "description": false,
-        "createdAt": false,
-        "updatedAt": false
-      }
-    }`);
-    return this.http.get(CONTACTS_LINK, { params: filter });
+    return this.http.get(CONTACTS_LINK, { params: { filter: JSON.stringify(filter) } });
   }
   createContact(values) {
     return this.http.post(CONTACTS_LINK, values).toPromise();

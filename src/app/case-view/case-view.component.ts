@@ -147,8 +147,9 @@ export class CaseViewComponent implements OnInit {
 
     this.case.state = this.case.state === 'active' ? 'done' : 'active';
 
+    debugger;
     try {
-      await this.api.updateCase({ isSaved: this.case.isSaved, id: this.case.id });
+      await this.api.updateCase({ state: this.case.state, id: this.case.id });
 
       await this.success.fire();
     } catch (error) {

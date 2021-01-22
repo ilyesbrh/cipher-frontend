@@ -75,20 +75,13 @@ export class TasksComponent implements OnInit {
 
     let deadline = null;
 
-    try {
-      v.startDate = v.startDate.toDate().getTime();
-      v.endDate = v.endDate.toDate().getTime();
+    let start = new Date(-8640000000000000).getTime();
+    let end = new Date(8640000000000000).getTime();
 
-      if (v.startDate < v.endDate) {
-        const temp = v.startDate;
-        v.startDate = v.endDate;
-        v.endDate = temp;
-      }
+    try { start = v.startDate.toDate().getTime() } catch (error) { }
+    try { end = v.endDate.toDate().getTime() } catch (error) { }
 
-      deadline = { lte: v.startDate, gte: v.endDate };
-
-    } catch (error) {
-    }
+    deadline = { between: [start, end] };
 
     // if search empty then return void object
     let where: any = v.search === '' ? {} : { title };

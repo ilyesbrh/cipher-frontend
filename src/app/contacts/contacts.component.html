@@ -44,6 +44,7 @@
     <h3 class="title" [attr.data-contact-number]="item.phone">{{item.fullName}}</h3>
     <sub class="number">{{item.address}} </sub>
 
+    <h3 class="role">{{item.role}}</h3>
 
     <button mat-icon-button class="favorite" (mousedown)="$event.stopPropagation()">
       <mat-icon>bookmarks</mat-icon>

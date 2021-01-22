@@ -9,7 +9,7 @@ $accent: mat-color($app-accent);
 
 :host {
   display: grid;
-  grid-template: 60px auto / repeat(12, 1fr);
+  grid-template: 60px auto 82px / repeat(12, 1fr);
   gap: 12px 16px;
 
   grid-column: 1 / end;
@@ -34,7 +34,7 @@ $accent: mat-color($app-accent);
 
 .title {
   grid-column: 1 / end;
-  grid-row: span 1;
+  grid-row: 1 / 2;
 }
 
 .users-list {
@@ -42,7 +42,7 @@ $accent: mat-color($app-accent);
   flex-direction: column;
 
   grid-column: 5 / span 8;
-  grid-row: 2 / end;
+  grid-row: 2 / 3;
 
   height: fit-content;
 
@@ -73,11 +73,19 @@ $accent: mat-color($app-accent);
       left: 18px;
       top: 34px;
     }
+    .role {
+      position: absolute;
+      right: 18px;
+      bottom: 8px;
+      margin: 0;
+
+      font-size: 16px;
+    }
 
     .favorite {
       position: absolute;
-      right: 12px;
-      top: 12px;
+      right: 10px;
+      top: 6px;
       mat-icon {
         margin: 8px;
       }

@@ -70,7 +70,7 @@ export class AddCaseComponent implements OnInit {
   constructor(private http: RestService, private dialog: MatDialog) { }
 
   async ngOnInit() {
-    this.contactsList = (await this.http.getAllContacts().toPromise()) as any[];
+    this.contactsList = (await this.http.getAllContacts({}).toPromise()) as any[];
 
     this.filteredOptions = this.caseForm.controls['client'].valueChanges
       .pipe(

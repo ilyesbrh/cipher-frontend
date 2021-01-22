@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { RestService } from '../globalServices/REST.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacts',
@@ -35,7 +36,51 @@ export class ContactsComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.contacts = await this.http.getAllContacts().toPromise();
+    const filter = {
+      fields: {
+        id: false,
+        fullName: true,
+        father: false,
+        mother: false,
+        phone: true,
+        birthday: false,
+        address: true,
+        email: false,
+        description: false,
+        createdAt: false,
+        updatedAt: false,
+        role: true
+      }
+    };
+
+    this.contacts = await this.http.getAllContacts(filter).toPromise();
+
+    this.filter.valueChanges.pipe(debounceTime(1000)).subscribe(async (v) => {
+
+      let where = {};
+
+      const addToFilter = (name, value, where) => {
+
+        switch (typeof value) {
+          case 'string':
+            return value === '' ? where : { ...where, [name]: { like: '%' + value + '%' } };
+          case 'number':
+            return { ...where, [name]: value };
+          default:
+            return where;
+        }
+      };
+
+      // NOTE: change to object type instead of string
+      where = addToFilter('fullName', v.name, where);
+      where = addToFilter('phone', v.phone, where);
+      where = addToFilter('role', v.role, where);
+      where = addToFilter('email', v.email, where);
+
+      this.contacts = await this.api.getAllContacts({ ...filter, where }).toPromise();
+
+    });
+
 
   }
 
@@ -54,7 +99,7 @@ export class ContactsComponent implements OnInit {
     if (result) {
       this.success.fire();
 
-      this.contacts = await this.http.getAllContacts().toPromise();
+      this.ngOnInit().then();
     }
 
   }

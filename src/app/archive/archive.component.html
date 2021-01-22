@@ -40,7 +40,17 @@
   <mat-form-field appearance="outline">
     <mat-label>Case state</mat-label>
     <mat-select formControlName="state">
-      <mat-option *ngFor="let state of ['Active','Done']" [value]="state">{{state}}</mat-option>
+      <mat-option *ngFor="let state of ['active','done']" [value]="state">{{state}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Sort cases by</mat-label>
+    <mat-select formControlName="sortBy">
+      <mat-option *ngFor="let sort of ['name','createdAt','price','number','location','state','totalDetes']"
+        [value]="sort">
+        {{sort}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -122,8 +132,8 @@
     <textarea matInput placeholder="description info" formControlName="description"></textarea>
 
   </mat-form-field>
-
-  <button mat-raised-button color="primary" style="width: 100%;" (click)="applyFilter()">Search</button>
+  <!--
+  <button mat-raised-button color="primary" style="width: 100%;" >Search</button> -->
 
 </div>
 

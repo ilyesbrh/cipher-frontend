@@ -24,6 +24,7 @@ export class AddContactComponent implements OnInit {
     description: new FormControl(''),
     father: new FormControl(''),
     mother: new FormControl(''),
+    role: new FormControl(''),
     birthday: new FormControl(''),
   });
 
